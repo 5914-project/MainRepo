@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Recipes</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+  <h1>Smart Recipes</h1>
+  <img src="/static/Cooking.jpg" alt="Cooking Pan">
+  <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
+    to figure all different all dishes that can be made with the ingredients.</p>
+  <h2>List:</h2>
+  <ul>
+    {% for item in items %}
+        <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

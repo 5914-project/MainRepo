@@ -1,0 +1,52 @@
+/* Define styles for the heading */
+h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  /* Define styles for the image */
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+  }
+  
+  /* Define styles for the paragraph */
+  p {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  /* Define styles for the button */
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Add hover effect to the button */
+  button:hover {
+    background-color: #3E8E41;
+  }
+
+  li {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+  }
