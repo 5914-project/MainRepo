@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
-from SpeechToText import *
+from SpeechToText import speech_to_text
+
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
