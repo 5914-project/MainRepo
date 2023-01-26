@@ -30,7 +30,15 @@ es = Elasticsearch(es_header)
 
 print(es)
 
-res = es.search(index="recipes", body={'query': {"match": {'title': 'fried chicken'}}})
+query_body = {
+  "query": {
+    "match": {
+      'title': 'fried chicken'
+    }
+  }
+}
+
+res = es.search(index="recipes", body=query_body, size=1000)
 print(len(res["hits"]["hits"]))
 for doc in res["hits"]["hits"]:
   print(doc)
