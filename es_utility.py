@@ -1,16 +1,18 @@
 import os, json, glob
 
 def get_data(index, dir):
-    files = []
+    content = []
 
     os.chdir(dir)
     
     for file in glob.glob('*.json'):
         f = open(file)
         data = json.load(f)
-        files.append({
-            '_index': index,
-            'data': data
-        })
 
-    return files
+        for val in data.values():
+            content.append({
+                '_index': index,
+                '_source': val
+            })
+        
+    return content
