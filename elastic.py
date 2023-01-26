@@ -30,10 +30,14 @@ es = Elasticsearch(es_header)
 
 print(es)
 
+res = es.search(index="recipes", body={'query': {"match": {'title': 'fried chicken'}}})
+print(len(res["hits"]["hits"]))
+for doc in res["hits"]["hits"]:
+  print(doc)
 
 ''' uncomment to create index and add json data to index '''
 # es.indices.create(index = 'recipes')
-#result = helpers.bulk(es, get_data('recipes', 'recipes_by_food'), chunk_size=500, request_timeout=60*3)
+# result = helpers.bulk(es, get_data('recipes', 'recipes_by_food'), request_timeout=60*3)
 
 ''' delete the index '''
 # es.indices.delete(index='recipes', ignore=[400, 404])
