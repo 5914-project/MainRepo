@@ -1,5 +1,6 @@
 from elasticsearch import Elasticsearch, helpers
-import os, re, glob, json
+from es_utility import get_data
+import re
 
 # bonsai = os.environ['BONSAI_URL']
 bonsai = 'https://aheh650jci:y2gh5o7eb0@student-search-6074912715.us-east-1.bonsaisearch.net:443'
@@ -27,20 +28,12 @@ es_header = [{
 es = Elasticsearch(es_header)
 
 
-
 print(es)
 
 
-def index():
-    files = []
+''' uncomment to create index and add json data to index '''
+# es.indices.create(index = 'recipes')
+#result = helpers.bulk(es, get_data('recipes', 'recipes_by_food'), chunk_size=500, request_timeout=60*3)
 
-    os.chdir("recipes_by_food")
-    
-    for file in glob.glob("*.json"):
-        f = open(file)
-        data = json.load(f)
-        files.append(data)
-
-    return files
-
-index()
+''' delete the index '''
+# es.indices.delete(index='recipes', ignore=[400, 404])
