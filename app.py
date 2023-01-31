@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template
 from SpeechToText import speech_to_text
+import elastic as es
 
 app = Flask(__name__)
+es.initialize()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
