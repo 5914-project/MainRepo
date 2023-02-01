@@ -3,12 +3,12 @@ CSE 5914 Repository
 
 to get the docker image:
 <br>
-```docker pull schlys/5914-project:flask-app```
+```docker pull schlys/5914-project:main```
 
 to run docker container from wsl:
 <br>
-```docker run -t -i -p 5000:5000 -e "PULSE_SERVER=${PULSE_SERVER}" -v /mnt/wslg/:/mnt/wslg/ flask-app```
+```docker run -t -i -p 5000:5000 -e "PULSE_SERVER=${PULSE_SERVER}" -v /mnt/wslg/:/mnt/wslg/ schlys/5914-project:main```
 
 to run docker container from mac/linux
 <br>
-```docker run -t -i -p 5000:5000 --device /dev/snd flask-app```
+```docker run -t -i -p 5000:5000 --device /dev/snd schlys/5914-project:main```
