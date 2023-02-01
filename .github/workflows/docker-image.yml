@@ -27,4 +27,3 @@ jobs:
           push: true
           tags: |
             schlys/5914-project:latest
-            schlys/5914-project:$(date +%s)
