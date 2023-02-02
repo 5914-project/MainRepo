@@ -4,7 +4,7 @@ def BarcodeReaderFunc(bar_code):
 	url = "https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/" + bar_code
 
 	headers = {
-		"X-RapidAPI-Key": "3b0e8b3764mshf99db17679a58cfp1ef850jsn9dc26761051c",
+		"X-RapidAPI-Key": '19fa1a4ab8mshe730d4186e3f720p1da58bjsnd5a11ce6c2a4',
 		"X-RapidAPI-Host": "product-lookup-by-upc-or-ean.p.rapidapi.com"
 	}
 
@@ -12,4 +12,4 @@ def BarcodeReaderFunc(bar_code):
 
 	data = response.json()
 	category = data.get("product").get("category")
-	print(category)
+	return category

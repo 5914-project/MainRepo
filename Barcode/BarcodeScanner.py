@@ -1,13 +1,15 @@
 import cv2
 import numpy as np
 import pyzbar.pyzbar as pyzbar
-import BarcodeReader
+import Barcode.BarcodeReader as BarcodeReader
+import tempfile
 
-def BarcodeScanner():
-    # Load the image
-    image = cv2.imread("coffee_barcode.png")
-
-    # Convert the image to grayscale
+def BarcodeScanner(image_binary):
+    # Load the image data into a NumPy array
+    image = np.frombuffer(image_binary, dtype=np.uint8)
+    # Decode the image data into a OpenCV image
+    image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+    
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Detect barcodes in the image
@@ -24,5 +26,3 @@ def BarcodeScanner():
         # our output image we need to convert it to a string first
         barcode_data = barcode.data.decode("utf-8")
         return BarcodeReader.BarcodeReaderFunc(barcode_data)
-
-BarcodeScanner()

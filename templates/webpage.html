@@ -12,5 +12,26 @@
   <form method="post">
     <button type="submit">Start saying ingredients</button>
   </form>
+  <form>
+    <input type="file" id="imageInput" accept="image/*">
+    <button type="button" onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+  </form>
+  <script>
+    function sendImageToBarcodeScanner() {
+      var imageInput = document.getElementById("imageInput");
+      var image = imageInput.files[0];
+
+      var formData = new FormData();
+      formData.append("image", image);
+
+      fetch("/scan-barcode", {
+        method: "POST",
+        body: formData
+      })
+        .then(barcode => {
+          console.log(barcode);
+        });
+    }
+  </script>
 </body>
 </html>
