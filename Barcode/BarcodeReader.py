@@ -1,6 +1,6 @@
 import requests
 
-def BarcodeReader(bar_code):
+def BarcodeReaderFunc(bar_code):
 	url = "https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/" + bar_code
 
 	headers = {
@@ -10,4 +10,6 @@ def BarcodeReader(bar_code):
 
 	response = requests.request("GET", url, headers=headers)
 
-	#print(response.text['category'])
+	data = response.json()
+	category = data.get("product").get("category")
+	print(category)

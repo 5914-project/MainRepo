@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import pyzbar.pyzbar as pyzbar
+import BarcodeReader
 
 def BarcodeScanner():
     # Load the image
@@ -22,4 +23,6 @@ def BarcodeScanner():
         # The barcode data is a bytes object so if we want to draw it on
         # our output image we need to convert it to a string first
         barcode_data = barcode.data.decode("utf-8")
-        return BarcodeReader(barcode_data)
+        return BarcodeReader.BarcodeReaderFunc(barcode_data)
+
+BarcodeScanner()
