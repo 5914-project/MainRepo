@@ -12,5 +12,10 @@ def index():
         return render_template("list.html", items=result)
     return render_template("webpage.html")
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
