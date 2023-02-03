@@ -10,11 +10,11 @@
   <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
     to figure all different all dishes that can be made with the ingredients.</p>
   <form method="post">
-    <button type="submit">Start saying ingredients</button>
+    <button type="submit" name = 'Speak'>Start saying ingredients</button>
   </form>
   <form>
     <input type="file" id="imageInput" accept="image/*">
-    <button type="button" onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+    <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
   </form>
   <script>
     function sendImageToBarcodeScanner() {
@@ -28,9 +28,6 @@
         method: "POST",
         body: formData
       })
-        .then(barcode => {
-          console.log(barcode);
-        });
     }
   </script>
 </body>
