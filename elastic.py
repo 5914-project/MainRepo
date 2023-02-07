@@ -32,16 +32,16 @@ def initialize():
     # Instantiate the new Elasticsearch connection:
     ES = Elasticsearch(es_header)
 
-    # print(ES)
+    print(ES)
 
 
 
 
-def search():
+def search(ingredients):
     query_body = {
         "query": {
             "multi_match" : {
-            "query":    "chicken sugar", 
+            "query":    ingredients, 
             "fields": [ 'ingredients' ] 
             }
         }
@@ -58,7 +58,7 @@ def search():
 
 
 # initialize()
-# search()
+# search('green onion pepper')
 
 
 # creates index and add json data to index, do not call before deleting the index first

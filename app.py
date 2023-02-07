@@ -10,6 +10,7 @@ es.initialize()
 def index():
     if request.method == "POST":
         result = speech_to_text()
+        es.search(' '.join(result))
         return render_template("list.html", items=result)
     return render_template("webpage.html")
 
