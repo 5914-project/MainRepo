@@ -37,17 +37,35 @@ def initialize():
 
 
 
-def search(ingredients):
+def search(ingredients, title=''):
+
+    query_body1 = {
+       'query': {
+            'bool': {
+                'must' : {
+                    'match': {
+                        'title' : title
+                    }
+                },
+                'should' : {
+                    "multi_match" : {
+                        "query":    ingredients, 
+                        "fields": [ 'ingredients' ] 
+                    }
+                }
+            }
+       }
+    }
+
     query_body = {
         "query": {
             "multi_match" : {
-            "query":    ingredients, 
-            "fields": [ 'ingredients' ] 
+                "query":    ingredients, 
+                "fields": [ 'ingredients' ] 
             }
         }
-  }
+    }
     
-
     res = ES.search(index="recipes", body=query_body, size=10)
     
     for doc in res["hits"]["hits"]:
@@ -56,9 +74,11 @@ def search(ingredients):
 
     return res["hits"]["hits"]
 
+    return res['hits']['hits']
+
 
 # initialize()
-# search('green onion pepper')
+# search('green onion pepper', 'soup')
 
 
 # creates index and add json data to index, do not call before deleting the index first
