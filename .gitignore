@@ -2,3 +2,4 @@
 /.DS_Store
 /venv
 /.vscode
+/Barcode/__pycache__
