@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 from SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
-import elastic as es
+import elastic_search.elastic as es
 
 app = Flask(__name__)
 es.initialize()
