@@ -32,7 +32,7 @@ def initialize():
     # Instantiate the new Elasticsearch connection:
     ES = Elasticsearch(es_header)
 
-    print(ES)
+    # print(ES)
 
 
 
@@ -57,8 +57,8 @@ def search():
     print(len(res["hits"]["hits"]))
 
 
-initialize()
-search()
+# initialize()
+# search()
 
 
 # creates index and add json data to index, do not call before deleting the index first

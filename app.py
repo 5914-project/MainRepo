@@ -21,6 +21,7 @@ def scan_barcode():
     barcode = BS.BarcodeScanner(image_binary)
     
     return render_template("list.html", items=barcode)
+    
 @app.route('/login')
 def login():
     return render_template('login.html')
