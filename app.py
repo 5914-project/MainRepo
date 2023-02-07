@@ -17,7 +17,8 @@ def scan_barcode():
 
     # pass the image binary data to the BarcodeScanner function
     barcode = BS.BarcodeScanner(image_binary)
-
+    print(barcode)
+    # barcode=['test', 'test1']
     return render_template("list.html", items=barcode)
 
 if __name__ == '__main__':
