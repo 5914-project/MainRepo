@@ -10,7 +10,29 @@
   <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
     to figure all different all dishes that can be made with the ingredients.</p>
   <form method="post">
-    <button type="submit">Start saying ingredients</button>
+    <button type="submit" name = 'Speak'>Start saying ingredients</button>
   </form>
+  <form>
+    <input type="file" id="imageInput" accept="image/*">
+    <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+  </form>
+  <script>
+    function sendImageToBarcodeScanner() {
+      var imageInput = document.getElementById("imageInput");
+      var image = imageInput.files[0];
+
+      var formData = new FormData();
+      formData.append("image", image);
+
+      fetch("/scan-barcode", {
+        method: "POST",
+        body: formData
+      }).then((response) => {
+        return response.text();
+        }).then((html) => {
+            document.body.innerHTML = html
+        });
+    }
+  </script>
 </body>
 </html>

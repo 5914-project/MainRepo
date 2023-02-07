@@ -72,7 +72,7 @@ def search(ingredients, title=''):
         print(doc)
         print()
 
-    print(len(res["hits"]["hits"]))
+    return res["hits"]["hits"]
 
     return res['hits']['hits']
 
