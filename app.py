@@ -3,6 +3,7 @@ from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
 import ElasticSearch.elastic as es
 import HelperMethods.HelperMethods as HM
+from Speech.TextToSpeech import text_to_speech
 
 app = Flask(__name__)
 es.initialize()
@@ -30,6 +31,9 @@ def scan_barcode():
 def login():
     return render_template('login.html')
 
+@app.route('/read-page', methods=['POST'])
+def read_page():
+    text_to_speech('templates/webpage.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
