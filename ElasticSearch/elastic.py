@@ -8,7 +8,7 @@ def initialize():
     global ES
 
     # bonsai = os.environ['BONSAI_URL']
-    bonsai = 'https://aheh650jci:y2gh5o7eb0@student-search-6074912715.us-east-1.bonsaisearch.net:443'
+    bonsai = 'https://6aim8kq52e:shtc3vqkcj@5914-search-5012416670.us-east-1.bonsaisearch.net:443'
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
     host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
@@ -57,9 +57,6 @@ def search(ingredients):
     return res["hits"]["hits"]
 
 
-# initialize()
-# search('green onion pepper')
-
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
@@ -67,5 +64,6 @@ def index():
     return helpers.bulk(ES, get_data('recipes', 'recipes_by_food'), request_timeout=60*3)
 
 # delete the index
-def delete():
-    ES.indices.delete(index='recipes', ignore=[400, 404])
+def delete(index):
+    ES.indices.delete(index=index, ignore=[400, 404])
+
