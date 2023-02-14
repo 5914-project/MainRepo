@@ -16,6 +16,9 @@
     <input type="file" id="imageInput" accept="image/*">
     <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
   </form>
+  <form>
+    <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+  </form>
   <script>
     function sendImageToBarcodeScanner() {
       var imageInput = document.getElementById("imageInput");
@@ -32,6 +35,12 @@
         }).then((html) => {
             document.body.innerHTML = html
         });
+    }
+
+    function readWebpage() {
+      fetch("/read-page", {
+        method: "POST"
+      })
     }
   </script>
 </body>

@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch, helpers
-from es_utility import get_data
+from ElasticSearch.es_utility import get_data
 import re
 
 ES = None
@@ -8,7 +8,7 @@ def initialize():
     global ES
 
     # bonsai = os.environ['BONSAI_URL']
-    bonsai = 'https://aheh650jci:y2gh5o7eb0@student-search-6074912715.us-east-1.bonsaisearch.net:443'
+    bonsai = 'https://6aim8kq52e:shtc3vqkcj@5914-search-5012416670.us-east-1.bonsaisearch.net:443'
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
     host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
@@ -37,35 +37,17 @@ def initialize():
 
 
 
-def search(ingredients, title=''):
-
-    query_body1 = {
-       'query': {
-            'bool': {
-                'must' : {
-                    'match': {
-                        'title' : title
-                    }
-                },
-                'should' : {
-                    "multi_match" : {
-                        "query":    ingredients, 
-                        "fields": [ 'ingredients' ] 
-                    }
-                }
-            }
-       }
-    }
-
+def search(ingredients):
     query_body = {
         "query": {
             "multi_match" : {
-                "query":    ingredients, 
-                "fields": [ 'ingredients' ] 
+            "query":    ingredients, 
+            "fields": [ 'ingredients' ] 
             }
         }
-    }
+  }
     
+
     res = ES.search(index="recipes", body=query_body, size=10)
     
     for doc in res["hits"]["hits"]:
@@ -74,11 +56,6 @@ def search(ingredients, title=''):
 
     return res["hits"]["hits"]
 
-    return res['hits']['hits']
-
-
-# initialize()
-# search('green onion pepper', 'soup')
 
 
 # creates index and add json data to index, do not call before deleting the index first
@@ -87,5 +64,6 @@ def index():
     return helpers.bulk(ES, get_data('recipes', 'recipes_by_food'), request_timeout=60*3)
 
 # delete the index
-def delete():
-    ES.indices.delete(index='recipes', ignore=[400, 404])
+def delete(index):
+    ES.indices.delete(index=index, ignore=[400, 404])
+
