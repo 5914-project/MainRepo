@@ -12,6 +12,8 @@
   <form method="post">
     <button type="submit" name = 'Speak'>Start saying ingredients</button>
   </form>
+  <label for="text-box">Enter ingredients:</label>
+  <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
   <form>
     <input type="file" id="imageInput" accept="image/*">
     <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
@@ -45,6 +47,21 @@
         },
         body: JSON.stringify(data)
       })
+    }
+
+    function handleEnterKeyDown(event) {
+      if (event.keyCode === 13) { // check if Enter key was pressed
+        let data = { ingredients: document.getElementById("text-box").value};
+        fetch("/text", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then((response) => {
+          window.location.href = response.url;
+        });
+      }
     }
   </script>
 </body>

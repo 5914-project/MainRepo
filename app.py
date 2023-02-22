@@ -22,28 +22,31 @@ def scan_barcode():
     image_binary = request.files['image'].read()
 
     # pass the image binary data to the BarcodeScanner function
-    barcode = BS.BarcodeScanner(image_binary)
-    barcode = HM.get_keyword(barcode)
-    barcode = ['coffee']
+    # barcode = BS.BarcodeScanner(image_binary)
+    # barcode = HM.get_keyword(barcode)
+    barcode = "coffee"
     
     return redirect(url_for('recipes', items=json.dumps(barcode)))
 
+@app.route('/text/', methods=['POST'])
+def text():
+    ingredients = request.json.get('ingredients')
+    return redirect(url_for('recipes', items=json.dumps(ingredients)))
+
+@app.route('/read-page/', methods=['POST'])
+def read_page():
+    webpage = request.json.get('webpage')
+    text_to_speech(webpage)
 
 @app.route('/recipes/', methods=['GET', 'POST'])
 def recipes():
     items = json.loads(request.args['items'])
     esResult = es.search(items)
     return render_template('list.html', items=esResult)
-    
 
 @app.route('/login/')
 def login():
     return render_template('login.html')
-
-@app.route('/read-page/', methods=['POST'])
-def read_page():
-    webpage = request.json.get('webpage')
-    text_to_speech(webpage)
 
 if __name__ == '__main__':
     app.run(debug=True)
