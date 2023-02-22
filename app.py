@@ -9,6 +9,7 @@ import json
 app = Flask(__name__)
 es.initialize()
 
+#Home Route
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -16,23 +17,29 @@ def index():
         return redirect(url_for('recipes', items=json.dumps(result)))
     return render_template("webpage.html")
 
+#Team Route
+@app.route("/team/", methods=["GET", "POST"])
+def team():
+    return render_template("team.html")
 
+#Barcode Route
 @app.route('/scan-barcode/', methods=['POST'])
 def scan_barcode():
     image_binary = request.files['image'].read()
 
     # pass the image binary data to the BarcodeScanner function
-    # barcode = BS.BarcodeScanner(image_binary)
-    # barcode = HM.get_keyword(barcode)
-    barcode = "coffee"
+    barcode = BS.BarcodeScanner(image_binary)
+    barcode = HM.get_keyword(barcode)
     
     return redirect(url_for('recipes', items=json.dumps(barcode)))
 
+#Text input route
 @app.route('/text/', methods=['POST'])
 def text():
     ingredients = request.json.get('ingredients')
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
+#Reading page route
 @app.route('/read-page/', methods=['POST'])
 def read_page():
     webpage = request.json.get('webpage')
