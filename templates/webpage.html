@@ -10,7 +10,11 @@
     <a href="/team">Meet the Team</a>
   </div>
   <h1>Smart Recipes</h1>
-  <img src="/static/Cooking.jpg" alt="Cooking Pan">
+  <div class="image-carousel">
+		<img src="/static/Cooking.jpg" alt="Cooking Pan" class="active">
+    <img src="/static/Variety_Food.jfif" alt="Variety of food">
+    <img src="/static/Pancakes.jpg" alt="Pancakes">
+	</div>
   <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
     to figure all different all dishes that can be made with the ingredients.</p>
   <form method="post">
@@ -67,6 +71,17 @@
         });
       }
     }
+
+    function startCarousel() {
+			var images = document.querySelectorAll(".image-carousel img");
+			var index = 0;
+			setInterval(function() {
+				images[index].classList.remove("active");
+				index = (index + 1) % images.length;
+				images[index].classList.add("active");
+			}, 3000);
+		}
+		startCarousel();
   </script>
 </body>
 </html>
