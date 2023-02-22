@@ -23,6 +23,7 @@ def scan_barcode():
     # pass the image binary data to the BarcodeScanner function
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
+    barcode = 'coffee'
     esResult = es.search(' '.join(barcode))
 
     return render_template("list.html", items=esResult)
@@ -33,7 +34,8 @@ def login():
 
 @app.route('/read-page', methods=['POST'])
 def read_page():
-    text_to_speech('templates/webpage.html')
+    webpage = request.json.get('webpage')
+    text_to_speech(webpage)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -38,8 +38,13 @@
     }
 
     function readWebpage() {
+      var data = { webpage: 'templates/webpage.html' };
       fetch("/read-page", {
-        method: "POST"
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
     }
   </script>

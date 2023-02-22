@@ -23,6 +23,10 @@
     {% endfor %}
   </ul>
 
+  <form>
+    <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+  </form>
+
   <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -38,7 +42,18 @@
         }
       });
     }
-    </script>
+
+    function readWebpage() {
+      var data = { webpage: 'templates/list.html' };
+      fetch("/read-page", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+    }
+  </script>
 
 </body>
 </html>
