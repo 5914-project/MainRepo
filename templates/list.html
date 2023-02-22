@@ -5,11 +5,9 @@
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+  <div class="back-button" onclick="goBack()">Back</div>
   <h1>Smart Recipes</h1>
-  <img src="/static/Cooking.jpg" alt="Cooking Pan">
-  <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
-    to figure all different all dishes that can be made with the ingredients.</p>
-  <h2>List:</h2>
+  <h2>List of Recipes:</h2>
   <ul>
     {% for item in items %}
         <button class="accordion">{{ item.title }}</button>
@@ -54,6 +52,18 @@
         body: JSON.stringify(data)
       })
     }
+
+    window.addEventListener("scroll", function() {
+			var backButton = document.querySelector(".back-button");
+			if (window.scrollY > 0) {
+				backButton.classList.add("hidden");
+			} else {
+				backButton.classList.remove("hidden");
+			}
+		});
+		function goBack() {
+  			window.history.back();
+		}
   </script>
 
 </body>
