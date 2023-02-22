@@ -38,15 +38,20 @@ def initialize():
 
 
 def search(ingredients):
+    match_list = []
+
+    for i in ingredients:
+       match_list.append({
+          'match': {'ingredients': i}
+       })
+
     query_body = {
-        "query": {
-            "multi_match" : {
-            "query":    ingredients, 
-            "fields": [ 'ingredients' ] 
+       'query': {
+            'bool': {
+                'should': match_list
             }
-        }
-  }
-    
+       }
+    }
 
     res = ES.search(index="recipes", body=query_body, size=10)
     
@@ -56,7 +61,8 @@ def search(ingredients):
 
     return res["hits"]["hits"]
 
-
+# initialize()
+# search(['sugar', 'chicken'])
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
