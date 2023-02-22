@@ -12,7 +12,7 @@ es.initialize()
 def index():
     if request.method == "POST":
         result = speech_to_text()
-        esResult = es.search(' '.join(result))
+        esResult = es.search(result)
         return render_template("list.html", items=esResult)
     return render_template("webpage.html")
 
@@ -24,7 +24,7 @@ def scan_barcode():
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
     barcode = 'coffee'
-    esResult = es.search(' '.join(barcode))
+    esResult = es.search(barcode)
 
     return render_template("list.html", items=esResult)
 

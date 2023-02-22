@@ -54,12 +54,15 @@ def search(ingredients):
     }
 
     res = ES.search(index="recipes", body=query_body, size=10)
-    
-    for doc in res["hits"]["hits"]:
+    matches = res['hits']['hits']
+
+    for doc in matches:
+        ingrs = doc['_source']['ingredients']
+        doc['_source']['ingredients'] = [x.replace('ADVERTISEMENT', '') for x in ingrs]
         print(doc)
         print()
 
-    return res["hits"]["hits"]
+    return matches
 
 # initialize()
 # search(['sugar', 'chicken'])
