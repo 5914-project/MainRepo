@@ -12,12 +12,12 @@
   <h2>List:</h2>
   <ul>
     {% for item in items %}
-        <button class="accordion">{{ item._source.title }}</button>
+        <button class="accordion">{{ item.title }}</button>
         <div class="panel">
             <p>
-                {{ item._source.ingredients }}
-                <br>
-                {{ item._source.instructions }}
+                {{ item.ingredients }}
+                <br><br>
+                {{ item.instructions }}
             </p>
         </div>
     {% endfor %}
@@ -32,16 +32,17 @@
     var i;
     
     for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
+    acc[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
         if (panel.style.display === "block") {
-          panel.style.display = "none";
+        panel.style.display = "none";
         } else {
-          panel.style.display = "block";
+        panel.style.display = "block";
         }
-      });
+    });
     }
+
 
     function readWebpage() {
       var data = { webpage: 'templates/list.html' };

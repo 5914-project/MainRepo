@@ -38,34 +38,30 @@ def initialize():
 
 
 def search(ingredients):
-    match_list = []
-
-    for i in ingredients:
-       match_list.append({
-          'match': {'ingredients': i}
-       })
-
     query_body = {
        'query': {
             'bool': {
-                'should': match_list
+                'should': [{'match': {'ingredients': x}} for x in ingredients]
             }
        }
     }
 
     res = ES.search(index="recipes", body=query_body, size=10)
-    matches = res['hits']['hits']
 
-    for doc in matches:
-        ingrs = doc['_source']['ingredients']
-        doc['_source']['ingredients'] = [x.replace('ADVERTISEMENT', '') for x in ingrs]
+    recipes = []
+    for doc in res['hits']['hits']:
+        recipe ={
+           'title': doc['_source']['title'],
+           'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
+           'instructions': doc['_source']['instructions']
+        }
+        recipes.append(recipe)
+
         print(doc)
         print()
 
-    return matches
+    return recipes
 
-# initialize()
-# search(['sugar', 'chicken'])
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
