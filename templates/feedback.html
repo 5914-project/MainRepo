@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Feedback</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+  </head>
+  <body>
+    <div class="logo-container">
+      <img src="/static/Logo.png" alt="Logo" class="logo">
+    </div>
+    <div class="sidebar">
+      <a href="/">Home</a>
+      <a class="active" href="/team">Meet the Team</a>
+      <a href="/feedback">User Feedback</a>
+    </div>
+
+    <h1>User Feedback</h1>
+    
+    <div id="comment-form">
+      <label for="comment">Enter your comments:</label><br>
+      <textarea id="comment" name="comment" rows="5" cols="50"></textarea><br>
+      <button type="button" onclick="submitComment()">Submit</button>
+    </div>
+    
+    <div id="comment-section"></div>
+    
+    <script>
+      function submitComment() {
+        var comment = document.getElementById("comment").value;
+        var commentSection = document.getElementById("comment-section");
+        var newComment = document.createElement("div");
+        newComment.classList.add("comment");
+        newComment.innerHTML = `
+          <span class="comment-text">${comment}</span>
+          <div class="comment-actions">
+            <button onclick="editComment(this)">Edit</button>
+            <button onclick="deleteComment(this)">Delete</button>
+          </div>
+        `;
+        commentSection.insertBefore(newComment, commentSection.firstChild);
+        document.getElementById("comment").value = "";
+        document.getElementById("comment").focus();
+        saveComments(commentSection.innerHTML);
+      }
+
+      function editComment(button) {
+        var commentText = button.parentNode.parentNode.querySelector(".comment-text");
+        var newText = prompt("Enter new comment text", commentText.innerText);
+        if (newText !== null) {
+          commentText.innerText = newText;
+          saveComments(document.getElementById("comment-section").innerHTML);
+        }
+      }
+
+      function deleteComment(button) {
+        var comment = button.parentNode.parentNode;
+        comment.parentNode.removeChild(comment);
+        saveComments(document.getElementById("comment-section").innerHTML);
+      }
+
+      function saveComments(comments) {
+        localStorage.setItem("userComments", comments);
+      }
+
+      function loadComments() {
+        var commentSection = document.getElementById("comment-section");
+        var comments = localStorage.getItem("userComments");
+        if (comments) {
+          commentSection.innerHTML = comments;
+        }
+      }
+
+      window.onload = function() {
+        loadComments();
+      };
+    </script>
+    
+  </body>
+</html>

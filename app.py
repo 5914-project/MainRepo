@@ -10,7 +10,7 @@ import items
 app = Flask(__name__)
 es.initialize()
 
-#Home and Team route
+#Home, Team, and User Feedback route
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("webpage.html")
@@ -18,6 +18,10 @@ def index():
 @app.route("/team/", methods=["GET", "POST"])
 def team():
     return render_template("team.html")
+
+@app.route("/feedback/", methods=["GET", "POST"])
+def feedback():
+    return render_template("feedback.html")
 
 
 #Input Data Route

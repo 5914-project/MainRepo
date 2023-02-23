@@ -150,3 +150,41 @@ button[type="submit"] {
   .image-carousel img.active {
     opacity: 1;
   }
+
+  ul {
+    list-style-type: none;
+  }
+
+  #comment-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid black;
+    max-width: 400px;
+  }
+
+  .comment-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .comment-actions button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
