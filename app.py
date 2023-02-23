@@ -5,24 +5,22 @@ import ElasticSearch.elastic as es
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
+import items
 
 app = Flask(__name__)
 es.initialize()
 
-#Home Route
+#Home and Team route
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == "POST":
-        result = speech_to_text()
-        return redirect(url_for('recipes', items=json.dumps(result)))
     return render_template("webpage.html")
 
-#Team Route
 @app.route("/team/", methods=["GET", "POST"])
 def team():
     return render_template("team.html")
 
-#Barcode Route
+
+#Input Data Route
 @app.route('/scan-barcode/', methods=['POST'])
 def scan_barcode():
     image_binary = request.files['image'].read()
@@ -31,15 +29,27 @@ def scan_barcode():
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
     
-    return redirect(url_for('recipes', items=json.dumps(barcode)))
+    items.addItem(barcode)
 
-#Text input route
+@app.route("/speech/", methods=["GET", "POST"])
+def speech():
+    result = speech_to_text()
+    for item in result:
+        items.addItem(item)
+
 @app.route('/text/', methods=['POST'])
 def text():
     ingredients = request.json.get('ingredients')
+    items.addItem(ingredients)
+
+
+#Return items route
+@app.route('/searchItems/', methods=['POST'])
+def searchItems():
+    ingredients = items.returnItems()
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
-#Reading page route
+#Page Reader Route
 @app.route('/read-page/', methods=['POST'])
 def read_page():
     webpage = request.json.get('webpage')
