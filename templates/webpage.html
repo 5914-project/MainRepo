@@ -5,6 +5,9 @@
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+  <div class="logo-container">
+    <img src="/static/Logo.png" alt="Logo" class="logo">
+  </div>
   <div class="sidebar">
     <a href="/">Home</a>
     <a href="/team">Meet the Team</a>
@@ -100,16 +103,12 @@
 		startCarousel();
 
     function clearAllFields() {
-      // Get all input and textarea elements in the document
       var inputFields = document.querySelectorAll('input, textarea');
-      
-      // Loop through each input field and clear its value
+
       for (var i = 0; i < inputFields.length; i++) {
-        // If the field is a file input, clear its value using a special trick
         if (inputFields[i].type === 'file') {
           inputFields[i].value = null;
         } else {
-          // Otherwise, clear the field's value as usual
           inputFields[i].value = "";
         }
       }

@@ -5,6 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="/static/team.css">
 </head>
 <body>
+	<div class="logo-container">
+		<img src="/static/Logo.png" alt="Logo" class="logo">
+	</div>
+
 	<div class="sidebar">
 		<a href="/">Home</a>
 		<a class="active" href="/team">Meet the Team</a>
@@ -32,5 +36,20 @@
 		<h2>Contact Us</h2>
 		<p>Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
 	</div>
+
+	<script>
+		function hideLogoWhenScrolled(logoClass) {
+			window.addEventListener("scroll", function() {
+				var logo = document.querySelector(logoClass);
+				if (window.scrollY > 0) {
+					logo.classList.add("hidden");
+				} else {
+					logo.classList.remove("hidden");
+				}
+			});
+		}
+
+		hideLogoWhenScrolled(".logo-container");
+	</script>
 </body>
 </html>

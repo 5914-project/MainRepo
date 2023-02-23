@@ -112,6 +112,23 @@ button[type="submit"] {
     pointer-events: none;
   }
 
+  .logo-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .logo-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .image-carousel {
     position: relative;
     height: 300px;
