@@ -18,18 +18,33 @@
   <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
     to figure all different all dishes that can be made with the ingredients.</p>
   <form method="post">
-    <button type="submit" name = 'Speak'>Start saying ingredients</button>
+    <button type="submit" name = 'Speak' onclick="sendToSpeech()">Start saying ingredients</button>
   </form>
-  <label for="text-box">Enter ingredients:</label>
-  <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
-  <form>
-    <input type="file" id="imageInput" accept="image/*">
-    <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+  <form onsubmit="clearAllFields()">
+    <form>
+      <label for="text-box">Enter ingredients:</label>
+      <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
+    </form>
+    <form>
+      <input type="file" id="imageInput" accept="image/*">
+      <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+    </form>
   </form>
   <form>
     <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
   </form>
+  <form>
+    <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
+  </form>
   <script>
+    function displayItems() {
+      fetch("/searchItems", {
+        method: "POST",
+      }).then((response) => {
+        window.location.href = response.url;
+        });
+    }
+    
     function sendImageToBarcodeScanner() {
       var imageInput = document.getElementById("imageInput");
       var image = imageInput.files[0];
@@ -40,10 +55,13 @@
       fetch("/scan-barcode", {
         method: "POST",
         body: formData
-      }).then((response) => {
-        window.location.href = response.url;
-        // return response.text();
-        });
+      })
+    }
+
+    function sendToSpeech() {
+      fetch("/speech", {
+        method: "POST",
+      })
     }
 
     function readWebpage() {
@@ -66,9 +84,7 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
-        }).then((response) => {
-          window.location.href = response.url;
-        });
+        })
       }
     }
 
@@ -82,6 +98,22 @@
 			}, 3000);
 		}
 		startCarousel();
+
+    function clearAllFields() {
+      // Get all input and textarea elements in the document
+      var inputFields = document.querySelectorAll('input, textarea');
+      
+      // Loop through each input field and clear its value
+      for (var i = 0; i < inputFields.length; i++) {
+        // If the field is a file input, clear its value using a special trick
+        if (inputFields[i].type === 'file') {
+          inputFields[i].value = null;
+        } else {
+          // Otherwise, clear the field's value as usual
+          inputFields[i].value = "";
+        }
+      }
+    }
   </script>
 </body>
 </html>
