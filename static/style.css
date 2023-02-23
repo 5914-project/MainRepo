@@ -65,6 +65,7 @@ button[type="submit"] {
     display: none;
     background-color: white;
     overflow: hidden;
+    text-align: left;
   }
 
   .sidebar {
