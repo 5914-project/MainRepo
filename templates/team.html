@@ -35,6 +35,10 @@
 
 		<h2>Contact Us</h2>
 		<p>Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
+
+		<form>
+			<button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+		</form>
 	</div>
 
 	<script>
@@ -50,6 +54,17 @@
 		}
 
 		hideLogoWhenScrolled(".logo-container");
+
+		function readWebpage() {
+			var data = { webpage: 'templates/team.html' };
+			fetch("/read-page", {
+				method: "POST",
+				headers: {
+				'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+		}
 	</script>
 </body>
 </html>
