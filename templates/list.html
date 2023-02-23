@@ -12,11 +12,16 @@
     {% for item in items %}
         <button class="accordion">{{ item.title }}</button>
         <div class="panel">
-            <p>
-                {{ item.ingredients }}
-                <br><br>
+            <strong>Ingredients</strong>
+            <ul>
+                {% for ingredient in item.ingredients %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+            <br>
+            <strong>Instructions</strong>
+            <br>
                 {{ item.instructions }}
-            </p>
         </div>
     {% endfor %}
   </ul>
