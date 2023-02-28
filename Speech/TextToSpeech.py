@@ -3,10 +3,8 @@ from gtts import gTTS
 import playsound
 import os
 
-def text_to_speech(html_name):
-    response = read_html_file(html_name)
-
-    soup = BeautifulSoup(response, "html.parser")
+def text_to_speech(html):
+    soup = BeautifulSoup(html, "html.parser")
 
     text = soup.get_text()
 

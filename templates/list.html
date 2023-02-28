@@ -49,9 +49,11 @@
     });
     }
 
-
     function readWebpage() {
-      var data = { webpage: 'templates/list.html' };
+      // Get the rendered HTML content of the page
+      var content = document.documentElement.outerHTML;
+      
+      var data = { webpage: content };
       fetch("/read-page", {
         method: "POST",
         headers: {
