@@ -10,9 +10,20 @@ import items
 app = Flask(__name__)
 es.initialize()
 
+@app.route('/')
+def login():
+    return render_template('login.html')
+
+@app.route('/auth/', methods=["GET", "POST"])
+def auth():
+    user = True
+    if (user):
+        return redirect(url_for('home'))
+
+
 #Home, Team, and User Feedback route
-@app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/home/", methods=["GET", "POST"])
+def home():
     return render_template("webpage.html")
 
 @app.route("/team/", methods=["GET", "POST"])
@@ -65,9 +76,6 @@ def recipes():
     esResult = es.search(items)
     return render_template('list.html', items=esResult)
 
-@app.route('/login/')
-def login():
-    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
