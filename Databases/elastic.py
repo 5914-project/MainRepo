@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch, helpers
-from ElasticSearch.es_utility import get_data
+from Databases.es_utility import get_data
 import re
 
 ES = None

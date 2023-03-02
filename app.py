@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
-import ElasticSearch.elastic as es
+import Databases.elastic as es
+import Databases.user_db as users
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
@@ -9,16 +10,15 @@ import items
 
 app = Flask(__name__)
 es.initialize()
+db = users.initialize()
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def login():
+    if (request.method == 'POST'):
+        return redirect(url_for('home'))
+
     return render_template('login.html')
 
-@app.route('/auth/', methods=["GET", "POST"])
-def auth():
-    user = True
-    if (user):
-        return redirect(url_for('home'))
 
 
 #Home, Team, and User Feedback route

@@ -1,4 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
+<!-- [![Contributors][contributors-shield]][contributors-url] -->
 
 <!-- TABLE OF CONTENTS -->
 <details>
