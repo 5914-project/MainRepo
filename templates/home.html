@@ -4,7 +4,7 @@
   <title>Smart Recipes</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<body>
+<body class="body">
   <div class="logo-container">
     <img src="/static/Logo.png" alt="Logo" class="logo">
   </div>
@@ -13,31 +13,31 @@
     <a href="/team">Meet the Team</a>
     <a href="/feedback">User Feedback</a>
   </div>
-  <h1>Smart Recipes</h1>
+  <h1 class="h1">Smart Recipes</h1>
   <div class="image-carousel">
-		<img src="/static/Cooking.jpg" alt="Cooking Pan" class="active">
-    <img src="/static/Variety_Food.jfif" alt="Variety of food">
-    <img src="/static/Pancakes.jpg" alt="Pancakes">
+		<img src="/static/Cooking.jpg" alt="Cooking Pan" class="active img">
+    <img src="/static/Variety_Food.jfif" alt="Variety of food" class="img">
+    <img src="/static/Pancakes.jpg" alt="Pancakes" class="img">
 	</div>
-  <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
+  <p class="p">Welcome to Smart Recipes, a website where users can enter different types of ingredients 
     to figure all different all dishes that can be made with the ingredients.</p>
-  <form method="post">
+  <form method="post" class="form">
     <button type="submit" name = 'Speak' onclick="sendToSpeech()">Start saying ingredients</button>
   </form>
-  <form onsubmit="clearAllFields()">
-    <form>
+  <form onsubmit="clearAllFields()" class="form">
+    <form class="form">
       <label for="text-box">Enter ingredients:</label>
       <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
     </form>
-    <form>
+    <form class="form">
       <input type="file" id="imageInput" accept="image/*">
       <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
     </form>
-  </form>
-  <form>
+  </form class="form">
+  <form class="form">
     <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
   </form>
-  <form>
+  <form class="form">
     <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
   </form>
   <script>
@@ -65,20 +65,6 @@
     function sendToSpeech() {
       fetch("/speech", {
         method: "POST",
-      })
-    }
-
-    function readWebpage() {
-      // Get the rendered HTML content of the page
-      var content = document.documentElement.outerHTML;
-      
-      var data = { webpage: content };
-      fetch("/read-page", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
       })
     }
 
@@ -118,5 +104,6 @@
       }
     }
   </script>
+  <script src="{{url_for('static', filename='html_utils.js')}}"></script>
 </body>
 </html>

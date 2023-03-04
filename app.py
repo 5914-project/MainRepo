@@ -14,17 +14,21 @@ db = users.initialize()
 
 @app.route('/', methods=["GET", "POST"])
 def login():
-    if (request.method == 'POST'):
+    error = None
+
+    if request.method == 'POST':
+        # if db.find_one({'username': request.form['']}):
+        #     return redirect(url_for('home'))
         return redirect(url_for('home'))
 
-    return render_template('login.html')
+    return render_template('login.html', error=error)
 
 
 
 #Home, Team, and User Feedback route
 @app.route("/home/", methods=["GET", "POST"])
 def home():
-    return render_template("webpage.html")
+    return render_template("home.html")
 
 @app.route("/team/", methods=["GET", "POST"])
 def team():

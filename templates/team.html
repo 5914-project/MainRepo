@@ -4,7 +4,7 @@
 	<title>Our Team</title>
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<body>
+<body class="body">
 	<div class="logo-container">
 		<img src="/static/Logo.png" alt="Logo" class="logo">
 	</div>
@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="content">
-		<h1>Meet the Team</h1>
-		<p>We are the creators of Smart Recipes!</p>
+		<h1 class="h1">Meet the Team</h1>
+		<p class="p">We are the creators of Smart Recipes!</p>
 
 		<h2>Team Members</h2>
 		<ul>
@@ -32,43 +32,20 @@
 		</ul>
 
 		<h2>About Smart Recipes</h2>
-		<p>Smart Recipes is a website that allows users to enter different types of ingredients to figure out all the different dishes that can be made with those ingredients.</p>
+		<p class="p">Smart Recipes is a website that allows users to enter different types of ingredients to figure out all the different dishes that can be made with those ingredients.</p>
 
 		<h2>Contact Us</h2>
-		<p>Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
+		<p class="p">Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
 
 		<form>
 			<button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
 		</form>
 	</div>
 
+    <script src="{{url_for('static', filename='html_utils.js')}}"></script>
 	<script>
-		function hideLogoWhenScrolled(logoClass) {
-			window.addEventListener("scroll", function() {
-				var logo = document.querySelector(logoClass);
-				if (window.scrollY > 0) {
-					logo.classList.add("hidden");
-				} else {
-					logo.classList.remove("hidden");
-				}
-			});
-		}
 
-		hideLogoWhenScrolled(".logo-container");
-
-		function readWebpage() {
-			// Get the rendered HTML content of the page
-			var content = document.documentElement.outerHTML;
-			
-			var data = { webpage: content };
-			fetch("/read-page", {
-				method: "POST",
-				headers: {
-				'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-		}
+		hideWhenScrolled(".logo-container");
 	</script>
 </body>
 </html>
