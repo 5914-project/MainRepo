@@ -1,25 +1,25 @@
 /* Add some default styles */
-body {
+.body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 30px;
 }
 
 /* Style the header */
-h1 {
+.h1 {
   font-size: 36px;
   margin-bottom: 20px;
 }
 
 /* Style the main image */
-img {
+.img {
   display: block;
   margin: 0 auto;
   width: 50%;
 }
 
 /* Style the text description */
-p {
+.p {
   font-size: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -27,7 +27,7 @@ p {
 }
 
 /* Style the form buttons */
-form {
+.form {
   display: inline-block;
   margin: 10px;
   text-align: left;
@@ -56,7 +56,7 @@ button[type="submit"] {
     transition: 0.4s;
   }
   
-  .active, .accordion:hover {
+  .accordian:active, .accordion:hover {
     background-color: #ccc; 
   }
   
@@ -187,4 +187,19 @@ button[type="submit"] {
     margin: 0 5px;
     padding: 5px 10px;
     font-size: 14px;
+  }
+
+  .pills {
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-width {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  .login-button-width {
+    margin-left: 35%;
+    margin-right: 35%;
   }

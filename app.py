@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
-import ElasticSearch.elastic as es
+import Databases.elastic as es
+import Databases.user_db as users
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
@@ -9,11 +10,38 @@ import items
 
 app = Flask(__name__)
 es.initialize()
+db = users.initialize()
+
+@app.route('/', methods=["GET", "POST"])
+def login():
+    error = None
+
+    if request.method == 'POST':
+        option = int(request.form['type'])
+        username = request.form['username']
+        password = request.form['password']
+
+        if option == 1:
+            if not db.find_one({'username': username}):
+                db.insert_one({'username': username, 'password': password, 'ingredients':[], 'allergies':[]})
+                return redirect(url_for('home'))
+            else:
+                error = 'Username already taken.'
+        else:
+            user = db.find_one({'username': username})
+            if user and password == user['password']:
+                return redirect(url_for('home'))
+            else:
+                error = 'Incorrect username or password.'
+       
+    return render_template('login.html', error=error)
+
+
 
 #Home, Team, and User Feedback route
-@app.route("/", methods=["GET", "POST"])
-def index():
-    return render_template("webpage.html")
+@app.route("/home/", methods=["GET", "POST"])
+def home():
+    return render_template("home.html")
 
 @app.route("/team/", methods=["GET", "POST"])
 def team():
@@ -65,9 +93,6 @@ def recipes():
     esResult = es.search(items)
     return render_template('list.html', items=esResult)
 
-@app.route('/login/')
-def login():
-    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

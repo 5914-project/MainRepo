@@ -4,12 +4,12 @@
   <title>Smart Recipes</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<body>
+<body class="body">
   <div class="back-button" onclick="goBack()">Back</div>
   <div class="logo-container">
     <img src="/static/Logo.png" alt="Logo" class="logo">
   </div>
-  <h1>Smart Recipes</h1>
+  <h1 class="h1">Smart Recipes</h1>
   <h2>List of Recipes:</h2>
   <ul>
     {% for item in items %}
@@ -33,54 +33,14 @@
     <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
   </form>
 
+   <script src="{{url_for('static', filename='html_utils.js')}}"></script>
   <script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
     
-    for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-        panel.style.display = "none";
-        } else {
-        panel.style.display = "block";
-        }
-    });
-    }
+    accordian_trigger();
 
-    function readWebpage() {
-      // Get the rendered HTML content of the page
-      var content = document.documentElement.outerHTML;
-      
-      var data = { webpage: content };
-      fetch("/read-page", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-    }
+    hideWhenScrolled(".back-button");
+    hideWhenScrolled(".logo-container");
 
-    function hideButtonWhenScrolled(buttonClass) {
-      window.addEventListener("scroll", function() {
-        var button = document.querySelector(buttonClass);
-        if (window.scrollY > 0) {
-          button.classList.add("hidden");
-        } else {
-          button.classList.remove("hidden");
-        }
-      });
-    }
-
-    hideButtonWhenScrolled(".back-button");
-    hideButtonWhenScrolled(".logo-container");
-
-		function goBack() {
-  			window.history.back();
-		}
   </script>
-
 </body>
 </html>
