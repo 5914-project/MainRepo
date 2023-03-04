@@ -17,10 +17,23 @@ def login():
     error = None
 
     if request.method == 'POST':
-        # if db.find_one({'username': request.form['']}):
-        #     return redirect(url_for('home'))
-        return redirect(url_for('home'))
+        option = int(request.form['type'])
+        username = request.form['username']
+        password = request.form['password']
 
+        if option == 1:
+            if not db.find_one({'username': username}):
+                db.insert_one({'username': username, 'password': password, 'ingredients':[], 'allergies':[]})
+                return redirect(url_for('home'))
+            else:
+                error = 'Username already taken.'
+        else:
+            user = db.find_one({'username': username})
+            if user and password == user['password']:
+                return redirect(url_for('home'))
+            else:
+                error = 'Incorrect username or password.'
+       
     return render_template('login.html', error=error)
 
 
