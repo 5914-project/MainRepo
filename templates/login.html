@@ -17,18 +17,40 @@
         <div class="login-button-width">
             <ul class="nav nav-pills nav-fill mb-3 pills" id="pills-tab">
                 <li class="nav-item">
-                <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" aria-controls="pills-login" aria-selected="true">Login</button>
+                <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button">
+                    Login
+                </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link" id="signup-tab" data-bs-toggle="pill" data-bs-target="#pills-signup" type="button" aria-controls="pills-signup" aria-selected="false">Sign Up</button>
+                <button class="nav-link" id="signup-tab" data-bs-toggle="pill" data-bs-target="#pills-signup" type="button">
+                    Sign Up
+                </button>
                 </li>
             </ul>
         </div>
         <br>
 
         <div class="tab-content login-width" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-login" aria-labelledby="login-tab">login</div>
-        <div class="tab-pane fade" id="pills-signup" aria-labelledby="signup-tab">signup</div>
+        <div class="tab-pane fade show active" id="pills-login">
+            <form action="" method="post">
+                <input type="hidden" name="type" value="2">
+                <input type="text" name="username" class="form-control" placeholder="Enter your username">
+                <br>
+                <input type="text" name="password" class="form-control" placeholder="Enter your password">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Login">
+            </form>
+        </div>
+        <div class="tab-pane fade" id="pills-signup">
+            <form action="" method="post">
+                <input type="hidden" name="type" value="1">
+                <input type="text" name="username" class="form-control" placeholder="Enter a new username">
+                <br>
+                <input type="text" name="password" class="form-control" placeholder="Enter a new password">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Sign Up">
+            </form>
+        </div>
         </div>
    </div>
 
