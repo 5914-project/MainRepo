@@ -9,6 +9,10 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
+    env:
+      MONGODB: ${{ secrets.MONGODB }}
+      BONSAI_URL: ${{ secrets.BONSAI_URL }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo

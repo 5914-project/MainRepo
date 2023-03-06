@@ -2,6 +2,10 @@
 
 FROM python:3.9
 
+ENV BONSAI_URL = $BONSAI_URL
+ENV MONGODB = $MONGODB
+ENV RAPIDAPI_KEY = $RAPIDAPI_KEY
+
 WORKDIR /python-docker
 
 COPY requirements.txt requirements.txt
