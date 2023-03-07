@@ -188,3 +188,14 @@ button[type="submit"] {
     padding: 5px 10px;
     font-size: 14px;
   }
+
+  .team_pics {
+    width: 250px;
+    height: auto; 
+    margin-bottom: 20px;
+    margin-top: 5px;
+  }
+
+  .team_names {
+    font-weight: bold;
+  }
