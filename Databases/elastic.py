@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch, helpers
-from ElasticSearch.es_utility import get_data
+from Databases.es_utility import get_data
 import re
 
 ES = None
@@ -8,7 +8,7 @@ def initialize():
     global ES
 
     # bonsai = os.environ['BONSAI_URL']
-    bonsai = 'https://6aim8kq52e:shtc3vqkcj@5914-search-5012416670.us-east-1.bonsaisearch.net:443'
+    bonsai = 'https://n6cfbimamd:esj58h0n5t@5914-search-2656906543.us-east-1.bonsaisearch.net:443'
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
     host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
@@ -66,7 +66,7 @@ def search(ingredients):
 # creates index and add json data to index, do not call before deleting the index first
 def index():
     ES.indices.create(index = 'recipes')
-    return helpers.bulk(ES, get_data('recipes', 'recipes_by_food'), request_timeout=60*3)
+    return helpers.bulk(ES, get_data('recipes', '../recipes_by_food'), request_timeout=60*3)
 
 # delete the index
 def delete(index):
