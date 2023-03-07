@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, jsonify, redirect, url_for, s
 from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
 import Databases.elastic as es
-import Databases.user_db as users
+import Databases.user_db as db
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
@@ -10,7 +10,7 @@ import items
 
 app = Flask(__name__)
 es.initialize()
-db = users.initialize()
+db.initialize()
 
 @app.route('/', methods=["GET", "POST"])
 def login():
@@ -22,17 +22,12 @@ def login():
         password = request.form['password']
 
         if option == 1:
-            if not db.find_one({'username': username}):
-                db.insert_one({'username': username, 'password': password, 'ingredients':[], 'allergies':[]})
-                return redirect(url_for('home'))
-            else:
-                error = 'Username already taken.'
+            error = db.signup(username, password)
         else:
-            user = db.find_one({'username': username})
-            if user and password == user['password']:
+            error = db.login(username, password)
+        
+        if not error:
                 return redirect(url_for('home'))
-            else:
-                error = 'Incorrect username or password.'
        
     return render_template('login.html', error=error)
 

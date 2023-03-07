@@ -27,3 +27,7 @@ jobs:
           push: true
           tags: |
             schlys/5914-project:latest
+          secrets: |
+            "MONGODB=${{ secrets.MONGODB }}"
+            "BONSAI_URL=${{ secrets.BONSAI_URL }}"
+            "RAPIDAPI_KEY=${{ secrets.RAPIDAPI_KEY }}"
