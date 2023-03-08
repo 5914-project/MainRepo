@@ -25,7 +25,11 @@ def signup(username, password):
         if len(username) == 0 or len(password) == 0:
             return 'Username or password cannot be empty.'
         
-        DB.insert_one({'username': username, 'password': password, 'ingredients':[], 'allergies':[]})
+        DB.insert_one({
+            'username': username, 
+            'password': password, 
+            'ingredients':[], 
+            'allergies':[]})
         return None
     
     return 'Username already taken.'
