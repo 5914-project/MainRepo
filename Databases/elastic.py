@@ -41,7 +41,7 @@ def search(ingredients):
     query_body = {
        'query': {
             'bool': {
-                'should': [{'match': {'ingredients': x}} for x in ingredients]
+                'should': [{'match_phrase': {'ingredients': x}} for x in ingredients]
             }
        }
     }
@@ -62,6 +62,8 @@ def search(ingredients):
 
     return recipes
 
+# initialize()
+# search(['chicken', 'green onion', 'rice'])
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
