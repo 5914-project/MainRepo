@@ -2,9 +2,11 @@ name: Publish Docker image
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - 'main'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - 'main'
 
 jobs:
   push_to_registry:
@@ -37,6 +39,7 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.output.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           secrets: |
             "MONGODB=${{ secrets.MONGODB }}"
             "BONSAI_URL=${{ secrets.BONSAI_URL }}"
