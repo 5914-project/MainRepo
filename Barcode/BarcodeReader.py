@@ -1,7 +1,7 @@
 import requests, os
 
 def BarcodeReaderFunc(bar_code):
-	url = os.environ('RAPIDAPI_KEY')
+	url = os.environ.get('RAPIDAPI_KEY')
 	# url = "https://barcode-lookup.p.rapidapi.com/v3/products"
 
 	querystring = {"barcode":bar_code}
