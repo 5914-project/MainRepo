@@ -20,7 +20,8 @@ RUN --mount=type=secret,id=MONGODB \
   --mount=type=secret,id=RAPIDAPI_KEY \
   export MONGODB=$(cat /run/secrets/MONGODB) && \
   export BONSAI_URL=$(cat /run/secrets/BONSAI_URL) && \
-  export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY)
+  export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY) && \
+  export TEST=hello
 
 RUN env
 
