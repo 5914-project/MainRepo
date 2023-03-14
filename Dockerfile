@@ -22,6 +22,12 @@ RUN --mount=type=secret,id=MONGODB \
   export BONSAI_URL=$(cat /run/secrets/BONSAI_URL) && \
   export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY)
 
+RUN env
+
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "app.py" ]

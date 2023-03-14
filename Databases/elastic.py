@@ -8,6 +8,8 @@ def initialize():
     global ES
 
     bonsai = os.environ.get('BONSAI_URL')
+    print(os.environ.get('MONGODB'))
+    print(os.environ.get('RAPIDAPI_KEY'))
     print(type(bonsai))
     print(bonsai)
     print(str(bonsai))
