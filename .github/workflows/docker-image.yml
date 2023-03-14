@@ -18,9 +18,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: schlys/5914-project
+          images: |
+            schlys/5914-project
           flavor: |
-            latest=auto
+            latest=true
           tags: |
             type=ref,event=pr
 
