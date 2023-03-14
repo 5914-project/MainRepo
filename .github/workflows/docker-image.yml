@@ -14,7 +14,17 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       
-      - name: Log in to Docker Hub
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: schlys/5914-project
+          flavor: |
+            latest=auto
+          tags: |
+            type=ref,event=pr
+
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -25,8 +35,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            schlys/5914-project:latest
+          tags: ${{ steps.meta.output.tags }}
           secrets: |
             "MONGODB=${{ secrets.MONGODB }}"
             "BONSAI_URL=${{ secrets.BONSAI_URL }}"
