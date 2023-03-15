@@ -4,6 +4,7 @@ FROM python:3.9
 
 WORKDIR /python-docker
 
+ARG MONGODB BONSAI_URL RAPIDAPI_KEY
 ENV MONGODB=${MONGODB} BONSAI_URL=${BONSAI_URL} RAPIDAPI_KEY=${RAPIDAPI_KEY}
 
 COPY requirements.txt requirements.txt
