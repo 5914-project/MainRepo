@@ -4,6 +4,8 @@ FROM python:3.9
 
 WORKDIR /python-docker
 
+ENV MONGODB=${MONGODB} BONSAI_URL=${BONSAI_URL} RAPIDAPI_KEY=${RAPIDAPI_KEY}
+
 COPY requirements.txt requirements.txt
 
 RUN apt-get update \
@@ -17,17 +19,20 @@ RUN apt-get install -y pulseaudio
 
 COPY . .
 
-RUN --mount=type=secret,id=MONGODB \
-  --mount=type=secret,id=BONSAI_URL \
-  --mount=type=secret,id=RAPIDAPI_KEY \
-  export MONGODB=$(cat /run/secrets/MONGODB) && \
-  export BONSAI_URL=$(cat /run/secrets/BONSAI_URL) && \
-  export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY) && \
-  python app.py
+# RUN --mount=type=secret,id=MONGODB \
+#   --mount=type=secret,id=BONSAI_URL \
+#   --mount=type=secret,id=RAPIDAPI_KEY \
+#   export MONGODB=$(cat /run/secrets/MONGODB) && \
+#   export BONSAI_URL=$(cat /run/secrets/BONSAI_URL) && \
+#   export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY)
 
 
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 
-# ENTRYPOINT [ "python" ]
+ENTRYPOINT [ "python" ]
 
-CMD ["/bin/bash"]
+CMD [ "app.py" ]
+
+# CMD ["export MONGODB=$(cat /run/secrets/MONGODB) && \
+#   export BONSAI_URL=$(cat /run/secrets/BONSAI_URL) && \
+#   export RAPIDAPI_KEY=$(cat /run/secrets/RAPIDAPI_KEY)"]

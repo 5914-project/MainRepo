@@ -40,7 +40,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: |
+          build-args: |
             "MONGODB=${{ secrets.MONGODB }}"
             "BONSAI_URL=${{ secrets.BONSAI_URL }}"
             "RAPIDAPI_KEY=${{ secrets.RAPIDAPI_KEY }}"
