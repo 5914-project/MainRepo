@@ -6,8 +6,8 @@ def BarcodeReaderFunc(bar_code):
 	querystring = {"barcode":bar_code}
 
 	headers = {
-		"X-RapidAPI-Key": os.environ.get('RAPIDAPI_KEY'),
-		#"X-RapidAPI-Key": "acfee8b3f8msh8f6c1b8c6586398p1b9d1cjsn47b1d0cd8f34",
+		#"X-RapidAPI-Key": os.environ.get('RAPIDAPI_KEY'),
+		"X-RapidAPI-Key": "acfee8b3f8msh8f6c1b8c6586398p1b9d1cjsn47b1d0cd8f34",
 		"X-RapidAPI-Host": "barcode-lookup.p.rapidapi.com"
 	}
 

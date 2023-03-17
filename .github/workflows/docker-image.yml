@@ -23,7 +23,7 @@ jobs:
           images: |
             schlys/5914-project
           flavor: |
-            latest=true
+            latest=${{ github.event_name != 'pull_request' }}
           tags: |
             type=ref,event=pr
 
