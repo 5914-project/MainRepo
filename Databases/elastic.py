@@ -7,8 +7,8 @@ ES = None
 def initialize():
     global ES
 
-    bonsai = os.environ.get('BONSAI_URL')
-    #bonsai = 'https://n6cfbimamd:esj58h0n5t@5914-search-2656906543.us-east-1.bonsaisearch.net:443'
+    #bonsai = os.environ.get('BONSAI_URL')
+    bonsai = 'https://n6cfbimamd:esj58h0n5t@5914-search-2656906543.us-east-1.bonsaisearch.net:443'
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
     host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
