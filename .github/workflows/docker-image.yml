@@ -22,10 +22,11 @@ jobs:
         with:
           images: |
             schlys/5914-project
-          flavor: |
-            latest=${{ github.event_name != 'pull_request' }}
+          # flavor: |
+          #   latest=${{ github.event_name != 'pull_request' }}
           tags: |
             type=ref,event=pr
+            type=raw,value=latest,enable=${{ github.event_name != 'pull_request' }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
