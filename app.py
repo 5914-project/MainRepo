@@ -75,10 +75,18 @@ def text():
     newItems = items.returnItems()
     return newItems
 
+#Remove items route
 @app.route('/removeItems/', methods=['POST'])
 def removeItems():
     items.removeItems()
     return ""
+
+@app.route('/removeSingleItem/', methods=['POST'])
+def removeSingleItem():
+    item = request.json.get('itemText')
+    items.removeItem(item)
+    newItems = items.returnItems()
+    return newItems
 
 #Return items route
 @app.route('/searchItems/', methods=['POST'])

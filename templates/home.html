@@ -68,14 +68,7 @@
       }).then((response) => {
         return response.json(); // Parse response as JSON data
       }).then((items) => {
-        var itemsList = document.getElementById("items");
-        itemsList.innerHTML = "";
-        for (let item of items) { // Use for...of loop to iterate over array items
-          var li = document.createElement("li");
-          var text = document.createTextNode(item);
-          li.appendChild(text);
-          itemsList.appendChild(li); // Append new list item to the itemsList
-        } 
+        addListItems(items)
       })
     }
 
@@ -86,14 +79,7 @@
       }).then((response) => {
         return response.json(); // Parse response as JSON data
       }).then((items) => {
-        var itemsList = document.getElementById("items");
-        itemsList.innerHTML = "";
-        for (let item of items) { // Use for...of loop to iterate over array items
-          var li = document.createElement("li");
-          var text = document.createTextNode(item);
-          li.appendChild(text);
-          itemsList.appendChild(li); // Append new list item to the itemsList
-        } 
+        addListItems(items)
       })
     }
 
@@ -119,14 +105,7 @@
         }).then((response) => {
           return response.json();
         }).then((items) => {
-          var itemsList = document.getElementById("items");
-          itemsList.innerHTML = "";
-          for (let item of items) { 
-            var li = document.createElement("li");
-            var text = document.createTextNode(item);
-            li.appendChild(text);
-            itemsList.appendChild(li); 
-          } 
+          addListItems(items)
         })
      }
     }
@@ -152,6 +131,36 @@
           inputFields[i].value = "";
         }
       }
+    }
+
+    function addListItems(items) {
+      var itemsList = document.getElementById("items");
+      itemsList.innerHTML = "";
+      for (let item of items) { 
+        var li = document.createElement("li");
+        var text = document.createTextNode(item);
+        li.appendChild(text);
+        // Create the remove button
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Remove";
+        removeButton.classList.add("remove-button");
+        removeButton.addEventListener("click", () => {
+          const itemText = text.textContent;
+          fetch("/removeSingleItem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({itemText: itemText})
+          }).then((response) => {
+            return response.json();
+          }).then((items) => {
+            addListItems(items)
+          })
+        });
+        li.appendChild(removeButton);
+        itemsList.appendChild(li); 
+      } 
     }
   </script>
   <script src="{{url_for('static', filename='html_utils.js')}}"></script>

@@ -231,3 +231,7 @@ button[type="submit"] {
   #items li:last-child {
     border-bottom: none; /* remove bottom border for last list item */
   }
+
+  .remove-button {
+    margin-left: 10px;
+  }

@@ -7,5 +7,8 @@ def addItem(new_item):
 def removeItems():
     items.clear()
 
+def removeItem(item):
+    items.remove(item)
+
 def returnItems():
     return items
