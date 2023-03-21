@@ -48,7 +48,7 @@ def feedback():
 
 
 #Input Data Route
-@app.route('/scan-barcode/', methods=['POST'])
+@app.route('/scan-barcode/', methods=['GET', "POST"])
 def scan_barcode():
     image_binary = request.files['image'].read()
 
@@ -57,18 +57,28 @@ def scan_barcode():
     barcode = HM.get_keyword(barcode)
     
     items.addItem(barcode)
+    newItems = items.returnItems()
+    return newItems
 
-@app.route("/speech/", methods=["GET", "POST"])
+@app.route("/speech/", methods=["GET", 'POST'])
 def speech():
     result = speech_to_text()
     for item in result:
         items.addItem(item)
+    newItems = items.returnItems()
+    return newItems
 
-@app.route('/text/', methods=['POST'])
+@app.route('/text/', methods=['GET', 'POST'])
 def text():
     ingredients = request.json.get('ingredients')
     items.addItem(ingredients)
+    newItems = items.returnItems()
+    return newItems
 
+@app.route('/removeItems/', methods=['POST'])
+def removeItems():
+    items.removeItems()
+    return ""
 
 #Return items route
 @app.route('/searchItems/', methods=['POST'])
@@ -87,7 +97,6 @@ def recipes():
     items = json.loads(request.args['items'])
     esResult = es.search(items)
     return render_template('list.html', items=esResult)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
