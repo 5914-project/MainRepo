@@ -214,3 +214,24 @@ button[type="submit"] {
     margin-left: 35%;
     margin-right: 35%;
   }
+
+  #items {
+    list-style: none; /* remove bullet points */
+    padding: 0; /* remove default padding */
+    margin: 0; /* remove default margin */
+  }
+  
+  #items li {
+    font-size: 1.2rem; /* set font size */
+    line-height: 1.5; /* set line height */
+    padding: 0.5rem; /* add padding */
+    border-bottom: 1px solid #ccc; /* add a bottom border */
+  }
+  
+  #items li:last-child {
+    border-bottom: none; /* remove bottom border for last list item */
+  }
+
+  .remove-button {
+    margin-left: 10px;
+  }
