@@ -3,6 +3,7 @@ from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
 import Databases.elastic as es
 import Databases.user_db as db
+from Databases.User import User
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
@@ -11,9 +12,11 @@ import items
 app = Flask(__name__)
 es.initialize()
 db.initialize()
+USER = None
 
 @app.route('/', methods=["GET", "POST"])
 def login():
+    global USER
     error = None
 
     if request.method == 'POST':
@@ -22,11 +25,12 @@ def login():
         password = request.form['password']
 
         if option == 1:
-            error = db.signup(username, password)
+            error, user = db.signup(username, password)
         else:
-            error = db.login(username, password)
+            error, user = db.login(username, password)
         
         if not error:
+                USER = User(user)
                 return redirect(url_for('home'))
        
     return render_template('login.html', error=error)
@@ -36,7 +40,7 @@ def login():
 #Home, Team, and User Feedback route
 @app.route("/home/", methods=["GET", "POST"])
 def home():
-    return render_template("home.html")
+    return render_template("home.html", items={'username':USER.username})
 
 @app.route("/team/", methods=["GET", "POST"])
 def team():
