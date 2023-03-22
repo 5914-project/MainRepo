@@ -44,6 +44,9 @@
   <form class="form">
     <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
   </form>
+  <form class="form">
+    <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
+  </form>
   <h2>Current Items:</h2>
   <ul id = "items"></ul>
   <script>
@@ -108,6 +111,12 @@
           addListItems(items)
         })
      }
+    }
+
+    function takePicture() {
+      fetch("/savePicture", {
+        method: "POST",
+      })
     }
 
     function startCarousel() {

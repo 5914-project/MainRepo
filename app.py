@@ -7,6 +7,7 @@ import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
 import items
+import Camera.CameraCapture as Camera
 
 app = Flask(__name__)
 es.initialize()
@@ -74,6 +75,11 @@ def text():
     items.addItem(ingredients)
     newItems = items.returnItems()
     return newItems
+
+@app.route('/savePicture/', methods=['GET', 'POST'])
+def savePicture():
+    Camera.takePic()
+    return ""
 
 #Remove items route
 @app.route('/removeItems/', methods=['POST'])
