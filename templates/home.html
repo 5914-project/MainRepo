@@ -12,7 +12,7 @@
     <img src="/static/images/Logo.png" alt="Logo" class="logo">
   </div>
   <div class="sidebar">
-    <a href="/">Logout</a>
+    <a href="/" class = "readable">Logout</a>
     <a href="/home">Home</a>
     <a href="/team">Meet the Team</a>
     <a href="/feedback">User Feedback</a>
@@ -44,13 +44,21 @@
   <form class="form">
     <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
   </form>
+  <form class="form">
+    <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
+  </form>
+  <form class="form">
+    <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
+  </form>
+  <h2>Current Items:</h2>
+  <ul id = "items"></ul>
   <script>
     function displayItems() {
       fetch("/searchItems", {
         method: "POST",
       }).then((response) => {
         window.location.href = response.url;
-        });
+      });
     }
     
     function sendImageToBarcodeScanner() {
@@ -63,17 +71,36 @@
       fetch("/scan-barcode", {
         method: "POST",
         body: formData
+      }).then((response) => {
+        return response.json(); // Parse response as JSON data
+      }).then((items) => {
+        addListItems(items)
       })
     }
 
     function sendToSpeech() {
+      event.preventDefault();
       fetch("/speech", {
         method: "POST",
+      }).then((response) => {
+        return response.json(); // Parse response as JSON data
+      }).then((items) => {
+        addListItems(items)
+      })
+    }
+
+    function clearItems() {
+      fetch("/removeItems", {
+        method: "POST",
+      }).then(response => {
+        var itemsList = document.getElementById("items");
+        itemsList.innerHTML = "";
       })
     }
 
     function handleEnterKeyDown(event) {
       if (event.keyCode === 13) { // check if Enter key was pressed
+        event.preventDefault();
         let data = { ingredients: document.getElementById("text-box").value};
         fetch("/text", {
           method: "POST",
@@ -81,8 +108,18 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
+        }).then((response) => {
+          return response.json();
+        }).then((items) => {
+          addListItems(items)
         })
-      }
+     }
+    }
+
+    function takePicture() {
+      fetch("/savePicture", {
+        method: "POST",
+      })
     }
 
     function startCarousel() {
@@ -106,6 +143,36 @@
           inputFields[i].value = "";
         }
       }
+    }
+
+    function addListItems(items) {
+      var itemsList = document.getElementById("items");
+      itemsList.innerHTML = "";
+      for (let item of items) { 
+        var li = document.createElement("li");
+        var text = document.createTextNode(item);
+        li.appendChild(text);
+        // Create the remove button
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Remove";
+        removeButton.classList.add("remove-button");
+        removeButton.addEventListener("click", () => {
+          const itemText = text.textContent;
+          fetch("/removeSingleItem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({itemText: itemText})
+          }).then((response) => {
+            return response.json();
+          }).then((items) => {
+            addListItems(items)
+          })
+        });
+        li.appendChild(removeButton);
+        itemsList.appendChild(li); 
+      } 
     }
   </script>
   <script src="{{url_for('static', filename='html_utils.js')}}"></script>

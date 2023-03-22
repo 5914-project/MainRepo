@@ -2,7 +2,7 @@
 
 FROM python:3.9
 
-WORKDIR /python-docker
+WORKDIR /app
 
 ARG MONGODB BONSAI_URL RAPIDAPI_KEY
 ENV MONGODB=${MONGODB} BONSAI_URL=${BONSAI_URL} RAPIDAPI_KEY=${RAPIDAPI_KEY}
@@ -15,11 +15,10 @@ RUN apt-get update \
         && apt-get install -y zbar-tools
 
 RUN pip3 install -r requirements.txt
-
+RUN pip3 install gunicorn
 RUN apt-get install -y pulseaudio
 
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
-
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 60 app:app
 
