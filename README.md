@@ -56,3 +56,9 @@ to run docker container from mac/linux
 ```sh
 docker run -t -i -p 5000:5000 --device /dev/snd schlys/5914-project:latest
 ```
+
+
+Tian: use this command for working in docker env.
+```
+docker run -it   -v `pwd`:/mapped_path    -p 5000:5000 bcd0a7d07331 /bin/bash
+```
