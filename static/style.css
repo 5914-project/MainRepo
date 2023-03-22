@@ -215,6 +215,10 @@ button[type="submit"] {
     margin-right: 35%;
   }
 
+.username {
+    float: left;
+    margin-left: 5%;
+}
   #items {
     list-style: none; /* remove bullet points */
     padding: 0; /* remove default padding */
