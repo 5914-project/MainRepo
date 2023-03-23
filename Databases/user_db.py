@@ -17,9 +17,9 @@ def login(username, password):
     user = DB.find_one({'username': username})
 
     if user and password == user['password']:
-        return None
+        return None, user
     
-    return 'Incorrect username or password.'
+    return 'Incorrect username or password.', None
 
 def signup(username, password):
     if not DB.find_one({'username': username}):
@@ -31,6 +31,7 @@ def signup(username, password):
             'password': password, 
             'ingredients':[], 
             'allergies':[]})
-        return None
+        
+        return None, DB.find_one({'username': username})
     
-    return 'Username already taken.'
+    return 'Username already taken.', None
