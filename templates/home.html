@@ -25,16 +25,10 @@
   <form method="post">
     <button type="submit" name = 'Speak' onclick="sendToSpeech()">Start saying ingredients</button>
   </form>
-  <form onsubmit="clearAllFields()" class="form">
-    <form class="form">
-      <label for="text-box">Enter ingredients:</label>
-      <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
-    </form>
-    <form class="form">
-      <input type="file" id="imageInput" accept="image/*">
-      <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
-    </form>
-  </form class="form">
+  <form class="form">
+    <input type="file" id="imageInput" accept="image/*">
+    <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+  </form>
   <form class="form">
     <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
   </form>
@@ -42,11 +36,17 @@
     <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
   </form>
   <form class="form">
-    <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
-  </form>
-  <form class="form">
     <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
   </form>
+  <form class="form">
+    <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
+  </form>
+  <form onsubmit="clearAllFields()" class="form">
+    <form class="form">
+      <label for="text-box">Enter ingredients:</label>
+      <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
+    </form>
+  </form class="form">
   <h2>Current Items:</h2>
   <ul id = "items"></ul>
   <script>

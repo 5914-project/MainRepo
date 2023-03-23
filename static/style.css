@@ -18,6 +18,14 @@
   width: 50%;
 }
 
+label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
 /* Style the text description */
 .p {
   font-size: 20px;
@@ -26,21 +34,26 @@
   margin-left: 50px;
 }
 
-/* Style the form buttons */
 .form {
-  display: inline-block;
-  margin: 10px;
-  text-align: left;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-/* Style the submit button */
-button[type="submit"] {
+button[type="submit"], button[type="button"], #imageInput {
   padding: 10px 20px;
-  background-color: lightblue;
-  border: none;
+  font-size: 1.1rem;
   border-radius: 5px;
-  font-size: 18px;
+  border: none;
+  background-color: #eee;
+  color: black;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
+  background-color: #005fa3;
 }
 
 .accordion {
