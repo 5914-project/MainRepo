@@ -1,5 +1,7 @@
 Dockerfile
 README.md
+page.mp3
+test.py
 *.pyc
 *.pyo
 *.pyd

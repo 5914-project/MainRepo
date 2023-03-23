@@ -7,7 +7,6 @@ from Databases.User import User
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json, os
-import items
 import Camera.CameraCapture as Camera
 
 app = Flask(__name__)
@@ -61,24 +60,26 @@ def scan_barcode():
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
     
-    items.addItem(barcode)
-    newItems = items.returnItems()
-    return newItems
+    USER.add_ingredient(barcode)
+    db.update_doc(USER, USER.username)
+    return USER.get_ingredients()
 
 @app.route("/speech", methods=["GET", 'POST'])
 def speech():
     result = speech_to_text()
     for item in result:
-        items.addItem(item)
-    newItems = items.returnItems()
-    return newItems
+        USER.add_ingredient(item)
+    
+    db.update_doc(USER, USER.username)
+    return USER.get_ingredients()
 
 @app.route('/text', methods=['GET', 'POST'])
 def text():
     ingredients = request.json.get('ingredients')
-    items.addItem(ingredients)
-    newItems = items.returnItems()
-    return newItems
+
+    USER.add_ingredient(ingredients)
+    db.update_doc(USER, USER.username)
+    return USER.get_ingredients()
 
 @app.route('/savePicture', methods=['GET', 'POST'])
 def savePicture():
@@ -88,20 +89,22 @@ def savePicture():
 #Remove items route
 @app.route('/removeItems', methods=['POST'])
 def removeItems():
-    items.removeItems()
+    USER.clear_ingredients()
+    db.update_doc(USER, USER.username)
     return ""
 
 @app.route('/removeSingleItem', methods=['POST'])
 def removeSingleItem():
     item = request.json.get('itemText')
-    items.removeItem(item)
-    newItems = items.returnItems()
-    return newItems
+    print(item)
+    USER.remove_ingredient(item)
+    db.update_doc(USER, USER.username)
+    return USER.get_ingredients()
 
 #Return items route
 @app.route('/searchItems', methods=['POST'])
 def searchItems():
-    ingredients = items.returnItems()
+    ingredients = USER.get_ingredients()
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
 #Page Reader Route
