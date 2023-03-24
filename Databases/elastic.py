@@ -62,8 +62,6 @@ def search(ingredients):
 
     return recipes
 
-# initialize()
-# search(['chicken', 'green onion', 'rice'])
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():

@@ -35,3 +35,12 @@ def signup(username, password):
         return None, DB.find_one({'username': username})
     
     return 'Username already taken.', None
+
+def update_doc(user, username):
+    DB.update_one({'username': username},
+                  {'$set': {
+                            'ingredients': user.get_ingredients(),
+                            'allergies': user.get_allergies(),
+                            'username': user.username
+                            }
+                    })

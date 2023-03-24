@@ -14,11 +14,14 @@ class User:
     def remove_ingredient(self, ingredient):
         self.ingredients.remove(ingredient)
 
+    def clear_ingredients(self):
+        self.ingredients.clear()
+
     def remove_allergy(self, allergy):
         self.allergy.remove(allergy)
 
-    def ingredients(self):
+    def get_ingredients(self):
         return self.ingredients
     
-    def allergies(self):
+    def get_allergies(self):
         return self.allergies
