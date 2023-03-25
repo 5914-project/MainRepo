@@ -102,6 +102,7 @@ button[type="submit"]:hover, button[type="button"]:hover {
   .sidebar a:hover {
     background-color: #555;
     color: white;
+    cursor: pointer;
   }
   
   .content {

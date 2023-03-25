@@ -16,18 +16,22 @@ class User:
 
     def add_ingredient(self, ingredient):
         session['ingredients'].append(ingredient)
+        session.modified = True
 
     def add_allergy(self, allergy):
         session['allergies'].append(allergy)
+        session.modified = True
 
     def remove_ingredient(self, ingredient):
         session['ingredients'].remove(ingredient)
+        session.modified = True
 
     def clear_ingredients(self):
         session['ingredients'].clear()
 
     def remove_allergy(self, allergy):
         session['allergies'].remove(allergy)
+        session.modified = True
 
     def get_ingredients(self):
         return session['ingredients']

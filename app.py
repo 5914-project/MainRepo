@@ -41,7 +41,6 @@ def login():
         else:
             error, user_data = db.login(username, password)
         
-        print(user_data)
         if not error:
                 User().start_session(user_data)
                 return redirect(url_for('home'))
