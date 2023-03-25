@@ -12,7 +12,7 @@
     <img src="/static/images/Logo.png" alt="Logo" class="logo">
   </div>
   <div class="sidebar">
-    <a href="/" class = "readable">Logout</a>
+    <a onclick="logout()">Logout</a>
     <a href="/home">Home</a>
     <a href="/team">Meet the Team</a>
     <a href="/feedback">User Feedback</a>
@@ -53,6 +53,14 @@
   <h2>Current Items:</h2>
   <ul id = "items"></ul>
   <script>
+    function logout() {
+        fetch("/signout", {
+            method:"POST"
+        }).then((response) => {
+            window.location.href = response.url;
+        });
+    }
+
     function displayItems() {
       fetch("/searchItems", {
         method: "POST",

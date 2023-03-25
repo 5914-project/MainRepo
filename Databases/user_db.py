@@ -1,5 +1,6 @@
-import pymongo, os
+import pymongo, os, bcrypt
 from pymongo import MongoClient
+from Databases.models import User
 
 DB = None
 
@@ -16,7 +17,7 @@ def initialize():
 def login(username, password):
     user = DB.find_one({'username': username})
 
-    if user and password == user['password']:
+    if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
         return None, user
     
     return 'Incorrect username or password.', None
@@ -28,7 +29,7 @@ def signup(username, password):
         
         DB.insert_one({
             'username': username, 
-            'password': password, 
+            'password': bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), 
             'ingredients':[], 
             'allergies':[]})
         
@@ -36,11 +37,11 @@ def signup(username, password):
     
     return 'Username already taken.', None
 
-def update_doc(user, username):
+def update_doc(username):
     DB.update_one({'username': username},
                   {'$set': {
-                            'ingredients': user.get_ingredients(),
-                            'allergies': user.get_allergies(),
-                            'username': user.username
+                            'ingredients': User().get_ingredients(),
+                            'allergies': User().get_allergies(),
+                            'username': User().username()
                             }
                     })
