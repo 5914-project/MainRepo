@@ -1,80 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Our Team</title>
-	<link rel="stylesheet" type="text/css" href="/static/style.css">
-</head>
-<body class = "body">
-	<div class="logo-container">
-		<img src="/static/Logo.png" alt="Logo" class="logo">
-	</div>
+{% extends "base.html" %} 
 
-	<div class="sidebar">
-		<a href="/">Logout</a>
-		<a href="/home">Home</a>
-		<a class="active" href="/team">Meet the Team</a>
-		<a href="/feedback">User Feedback</a>
-	</div>
+{% block content %}
+    <div class="body">
+        <div class="logo-container">
+            <img src="/static/images/Logo.png" alt="Logo" class="logo">
+        </div>
 
-	<div class="content">
-		<h1>Meet the Team</h1>
-		<p>We are the creators of Smart Recipes!</p>
+        <div class="sidebar">
+            <a href="/">Logout</a>
+            <a href="/home">Home</a>
+            <a class="active" href="/team">Meet the Team</a>
+            <a href="/feedback">User Feedback</a>
+        </div>
 
-		<h2>Team Members</h2>
-		<ul>
-			<li class = "team_names">Blake Whitman</li>
-			<img src="/static/images/Blake.png" alt="Blake's picture" class = "team_pics">
-			<li class = "team_names">Abd Elrahman Ibrahim</li>
-			<img src="/static/images/Abdelrahman.jpg" alt="Abd Elrahman's picture" class = "team_pics">
-			<li class = "team_names">Sam Chlystek</li>
-			<img src="/static/images/Sam.jpg" alt="Sam's picture" class = "team_pics">
-			<li class = "team_names">Waris Mazhar</li>
-			<img src="/static/images/Waris.jpg" alt="Waris's picture" class = "team_pics">
-			<li class = "team_names">Tian Chen</li>
-			<img src="/static/images/Tian.jpg" alt="Tian's picture" class = "team_pics">
-			<li class = "team_names">Jacob Hatef</li>
-			<img src="/static/images/Jacob.jpeg" alt="Jacob's picture" class = "team_pics">
-			<li class = "team_names">Yusuf Abdirahman</li>
-			<img src="/static/images/Yusuf.jpg" alt="Yusuf's picture" class = "team_pics">
-			<li class = "team_names">Peter Lei</li>
-			<img src="/static/images/Peter.jpg" alt="Peter's picture" class = "team_pics">
-		</ul>
-		
-		<h2>Contact Us</h2>
-		<p>Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
+        <div class="content">
+            <h1>Meet the Team</h1>
+            <p>We are the creators of Smart Recipes!</p>
 
-		<form>
-			<button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
-		</form>
-	</div>
+            <h2>Team Members</h2>
+            <ul>
+                <li class = "team_names">Blake Whitman</li>
+                <img src="/static/images/Blake.png" alt="Blake's picture" class = "team_pics">
+                <li class = "team_names">Abd Elrahman Ibrahim</li>
+                <img src="/static/images/Abdelrahman.jpg" alt="Abd Elrahman's picture" class = "team_pics">
+                <li class = "team_names">Sam Chlystek</li>
+                <img src="/static/images/Sam.jpg" alt="Sam's picture" class = "team_pics">
+                <li class = "team_names">Waris Mazhar</li>
+                <img src="/static/images/Waris.jpg" alt="Waris's picture" class = "team_pics">
+                <li class = "team_names">Tian Chen</li>
+                <img src="/static/images/Tian.jpg" alt="Tian's picture" class = "team_pics">
+                <li class = "team_names">Jacob Hatef</li>
+                <img src="/static/images/Jacob.jpeg" alt="Jacob's picture" class = "team_pics">
+                <li class = "team_names">Yusuf Abdirahman</li>
+                <img src="/static/images/Yusuf.jpg" alt="Yusuf's picture" class = "team_pics">
+                <li class = "team_names">Peter Lei</li>
+                <img src="/static/images/Peter.jpg" alt="Peter's picture" class = "team_pics">
+            </ul>
+            
+            <h2>Contact Us</h2>
+            <p>Have questions or feedback about Smart Recipes? Contact us at info@smartrecipes.com.</p>
 
+            <form>
+                <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+            </form>
+        </div>
+    </div>
 	<script>
-		function hideLogoWhenScrolled(logoClass) {
-			window.addEventListener("scroll", function() {
-				var logo = document.querySelector(logoClass);
-				if (window.scrollY > 0) {
-					logo.classList.add("hidden");
-				} else {
-					logo.classList.remove("hidden");
-				}
-			});
-		}
-
 		hideLogoWhenScrolled(".logo-container");
-
-		function readWebpage() {
-			// Get the rendered HTML content of the page
-			var content = document.documentElement.outerHTML;
-			
-			var data = { webpage: content };
-			fetch("/read-page", {
-				method: "POST",
-				headers: {
-				'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			})
-		}
 	</script>
-</body>
-</html>
+{% endblock %}
