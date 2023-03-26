@@ -51,6 +51,7 @@ def search(ingredients):
     recipes = []
     for doc in res['hits']['hits']:
         recipe ={
+           'id': doc['_id'],
            'title': doc['_source']['title'],
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
            'instructions': doc['_source']['instructions']

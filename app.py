@@ -6,12 +6,12 @@ import Databases.user_db as db
 from Databases.models import User
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
-import json, os
+import json, os, secrets
 import Camera.CameraCapture as Camera
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = os.urandom(16)
+app.secret_key = secrets.token_bytes(32)
 es.initialize()
 db.initialize()
 
@@ -48,7 +48,7 @@ def login():
     return render_template('login.html', error=error)
 
 
-@app.route('/signout')
+@app.route('/signout', methods=['POST'])
 @login_required
 def signout():
     User().signout()
@@ -144,7 +144,7 @@ def read_page():
 def recipes():
     items = json.loads(request.args['items'])
     esResult = es.search(items)
-    return render_template('list.html', items=esResult)
+    return render_template('results.html', items=esResult)
 
 
 if __name__ == '__main__':
