@@ -4,54 +4,56 @@
   <title>Smart Recipes</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
-<body class="body">
-    <div class="username">
-        {{ items.username }}
+<body>
+    <div class="body">
+            <div class="username">
+                {{ items.username }}
+            </div>
+        <div class="logo-container">
+            <img src="/static/images/Logo.png" alt="Logo" class="logo">
+        </div>
+        <div class="sidebar">
+            <a onclick="logout()">Logout</a>
+            <a href="/home">Home</a>
+            <a href="/team">Meet the Team</a>
+            <a href="/feedback">User Feedback</a>
+        </div>
+        <h1 class="h1">Smart Recipes</h1>
+        <div class="image-carousel">
+                <img src="/static/images/Cooking.jpg" alt="Cooking Pan" class="active img">
+            <img src="/static/images/Variety_Food.jfif" alt="Variety of food" class="img">
+            <img src="/static/images/Pancakes.jpg" alt="Pancakes" class="img">
+            </div>
+        <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
+            to figure all the different dishes that can be made with the ingredients.</p>
+        <form method="post">
+            <button type="submit" name = 'Speak' onclick="sendToSpeech()">Start saying ingredients</button>
+        </form>
+        <form class="form">
+            <input type="file" id="imageInput" accept="image/*">
+            <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+        </form>
+        <form class="form">
+            <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+        </form>
+        <form class="form">
+            <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
+        </form>
+        <form class="form">
+            <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
+        </form>
+        <form class="form">
+            <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
+        </form>
+        <form onsubmit="clearAllFields()" class="form">
+            <form class="form">
+            <label for="text-box">Enter ingredients:</label>
+            <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
+            </form>
+        </form class="form">
+        <h2>Current Items:</h2>
+        <ul id = "items"></ul>
     </div>
-  <div class="logo-container">
-    <img src="/static/images/Logo.png" alt="Logo" class="logo">
-  </div>
-  <div class="sidebar">
-    <a onclick="logout()">Logout</a>
-    <a href="/home">Home</a>
-    <a href="/team">Meet the Team</a>
-    <a href="/feedback">User Feedback</a>
-  </div>
-  <h1 class="h1">Smart Recipes</h1>
-  <div class="image-carousel">
-		<img src="/static/images/Cooking.jpg" alt="Cooking Pan" class="active img">
-    <img src="/static/images/Variety_Food.jfif" alt="Variety of food" class="img">
-    <img src="/static/images/Pancakes.jpg" alt="Pancakes" class="img">
-	</div>
-  <p>Welcome to Smart Recipes, a website where users can enter different types of ingredients 
-    to figure all the different dishes that can be made with the ingredients.</p>
-  <form method="post">
-    <button type="submit" name = 'Speak' onclick="sendToSpeech()">Start saying ingredients</button>
-  </form>
-  <form class="form">
-    <input type="file" id="imageInput" accept="image/*">
-    <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
-  </form>
-  <form class="form">
-    <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
-  </form>
-  <form class="form">
-    <button type="button" name = 'Search' onclick="displayItems()">Complete Search with ingredients</button>
-  </form>
-  <form class="form">
-    <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
-  </form>
-  <form class="form">
-    <button type="button" name = 'clear' onclick="clearItems()">Clear Items</button>
-  </form>
-  <form onsubmit="clearAllFields()" class="form">
-    <form class="form">
-      <label for="text-box">Enter ingredients:</label>
-      <input type="text" id="text-box" onkeydown="handleEnterKeyDown(event)">
-    </form>
-  </form class="form">
-  <h2>Current Items:</h2>
-  <ul id = "items"></ul>
   <script>
     function logout() {
         fetch("/signout", {
@@ -185,6 +187,6 @@
 
     
   </script>
-  <script src="{{url_for('static', filename='html_utils.js')}}"></script>
+  <script src="{{url_for('static', filename='scripts.js')}}"></script>
 </body>
 </html>

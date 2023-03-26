@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <div class="body container">
+        <div class="back-button" onclick="goBack()">Back</div>
+        <div class="logo-container">
+            <img src="/static/images/Logo.png" alt="Logo" class="logo">
+        </div>
+        <h1 class="h1">Smart Recipes</h1>
+        <h2>Recipes Found:</h2>
+
+        <div class="accordion">
+            {% for item in items %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-h-{{ item.id }}">
+                        <button class="accordion-button collapsed" type="acc" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <span class="display-1 body-text title-text"><strong>
+                                {{ item.title }}
+                            </strong></span>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-h-{{ item.id }}">
+                        <div class="accordion-body" style="text-align: left;">
+                            <strong>Ingredients</strong>
+                            <ul>
+                                {% for ingredient in item.ingredients %}
+                                    <li>{{ ingredient }}</li>
+                                {% endfor %}
+                            </ul>
+                            <br>
+                            <strong>Instructions</strong>
+                            <br>
+                            {{ item.instructions }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form>
+            <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+        </form>
+    </div>
+  <script>
+    hideWhenScrolled(".back-button");
+    hideWhenScrolled(".logo-container");
+  </script>
+{% endblock %}
+
