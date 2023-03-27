@@ -244,3 +244,8 @@ button[type="submit"]:hover, button[type="button"]:hover {
     border-width: 10px !important;
     border: 1px solid rgb(194, 193, 193) !important;
 }  
+
+.ingredients {
+    text-align: left;
+    padding-left: 45%;
+}

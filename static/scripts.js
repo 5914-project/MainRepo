@@ -38,12 +38,45 @@ function logout() {
     });
 }
 
-function displayItems() {
-  fetch("/searchItems", {
-    method: "POST",
-  }).then((response) => {
-    window.location.href = response.url;
-  });
+function getSelected(remove) {
+    let ingredients = [];
+    checkboxes = document.getElementsByName('ingredient');
+
+    for (ingredient of checkboxes) 
+        if (ingredient.checked) 
+            ingredients.push(ingredient.parentNode.id);
+
+    if (remove)
+        for (ingredient of ingredients) 
+            document.getElementById(ingredient).remove();
+        
+    return ingredients;
+}
+
+function remove() {
+    fetch("/removeItems", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'ingredients': getSelected(true)
+        })
+    })
+}
+
+function search() {
+    fetch("/searchItems", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'ingredients': getSelected()
+        })
+    }).then((response) => {
+        window.location.href = response.url;
+    });
 }
 
 function sendImageToBarcodeScanner() {
@@ -74,13 +107,28 @@ function sendToSpeech() {
   })
 }
 
-function clearItems() {
-  fetch("/removeItems", {
-    method: "POST",
-  }).then(response => {
-    var itemsList = document.getElementById("items");
-    itemsList.innerHTML = "";
-  })
+function addIngredients(items) {
+    for (item of items) {
+        const div = document.createElement('div');
+        div.className = 'form-check';
+        div.id = item;
+        div.innerHTML = `
+            <input class="form-check-input" name="ingredient" type="checkbox" value="" id="flexCheckDefault" checked="true">
+            <label class="form-check-label" for="flexCheckDefault">
+                ${item.charAt(0).toUpperCase() + item.slice(1)}
+            </label>
+        `
+        document.getElementById('ingredients').appendChild(div)
+    }
+}
+
+var checked = true;
+function selectAll() {
+    checkboxes = document.getElementsByName('ingredient');
+    for(checkbox of checkboxes) {
+        checkbox.checked = !checked;
+    }
+    checked = !checked;
 }
 
 function handleEnterKeyDown(event) {
@@ -96,7 +144,8 @@ function handleEnterKeyDown(event) {
     }).then((response) => {
       return response.json();
     }).then((items) => {
-      addListItems(items)
+        addIngredients(items)
+        document.getElementById("text-box").value = "";
     })
  }
 }
@@ -130,35 +179,35 @@ function clearAllFields() {
   }
 }
 
-function addListItems(items) {
-  var itemsList = document.getElementById("items");
-  itemsList.innerHTML = "";
-  for (let item of items) { 
-    var li = document.createElement("li");
-    var text = document.createTextNode(item);
-    li.appendChild(text);
-    // Create the remove button
-    const removeButton = document.createElement("button");
-    removeButton.innerText = "Remove";
-    removeButton.classList.add("remove-button");
-    removeButton.addEventListener("click", () => {
-      const itemText = text.textContent;
-      fetch("/removeSingleItem", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({itemText: itemText})
-      }).then((response) => {
-        return response.json();
-      }).then((items) => {
-        addListItems(items)
-      })
-    });
-    li.appendChild(removeButton);
-    itemsList.appendChild(li); 
-  } 
-}
+// function addListItems(items) {
+//   var itemsList = document.getElementById("items");
+//   itemsList.innerHTML = "";
+//   for (let item of items) { 
+//     var li = document.createElement("li");
+//     var text = document.createTextNode(item);
+//     li.appendChild(text);
+//     // Create the remove button
+//     const removeButton = document.createElement("button");
+//     removeButton.innerText = "Remove";
+//     removeButton.classList.add("remove-button");
+//     removeButton.addEventListener("click", () => {
+//       const itemText = text.textContent;
+//       fetch("/removeSingleItem", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({itemText: itemText})
+//       }).then((response) => {
+//         return response.json();
+//       }).then((items) => {
+//         addListItems(items)
+//       })
+//     });
+//     li.appendChild(removeButton);
+//     itemsList.appendChild(li); 
+//   } 
+// }
 
 //----------------- feedback page functions ------------------------------//
 function submitComment() {

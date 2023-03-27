@@ -98,11 +98,11 @@ def speech():
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
 def text():
-    ingredients = request.json.get('ingredients')
+    ingredient = request.json.get('ingredients')
 
-    User().add_ingredient(ingredients)
+    User().add_ingredient(ingredient)
     db.update_doc(User().username())
-    return User().get_ingredients()
+    return jsonify([ingredient])
 
 @app.route('/savePicture', methods=['GET', 'POST'])
 @login_required
@@ -110,19 +110,22 @@ def savePicture():
     Camera.takePic()
     return ""
 
-#Remove items route
+# #Remove items route
+# @app.route('/removeItems', methods=['POST'])
+# @login_required
+# def removeItems():
+#     User().clear_ingredients()
+#     db.update_doc(User().username())
+#     return ""
+
 @app.route('/removeItems', methods=['POST'])
 @login_required
 def removeItems():
-    User().clear_ingredients()
-    db.update_doc(User().username())
-    return ""
+    items = request.json.get('ingredients')
 
-@app.route('/removeSingleItem', methods=['POST'])
-@login_required
-def removeSingleItem():
-    item = request.json.get('itemText')
-    User().remove_ingredient(item)
+    for item in items:
+        User().remove_ingredient(item)
+
     db.update_doc(User().username())
     return User().get_ingredients()
 
@@ -130,7 +133,7 @@ def removeSingleItem():
 @app.route('/searchItems', methods=['POST'])
 @login_required
 def searchItems():
-    ingredients = User().get_ingredients()
+    ingredients = request.json.get('ingredients')
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
 #Page Reader Route
