@@ -42,12 +42,12 @@ function getSelected(remove) {
     let ingredients = [];
     checkboxes = document.getElementsByName('ingredient');
 
-    for (ingredient of checkboxes) 
+    for (const ingredient of checkboxes) 
         if (ingredient.checked) 
             ingredients.push(ingredient.parentNode.id);
 
     if (remove)
-        for (ingredient of ingredients) 
+        for (const ingredient of ingredients) 
             document.getElementById(ingredient).remove();
         
     return ingredients;
@@ -92,7 +92,7 @@ function sendImageToBarcodeScanner() {
   }).then((response) => {
     return response.json(); // Parse response as JSON data
   }).then((items) => {
-    addListItems(items)
+    addIngredients(items)
   })
 }
 
@@ -103,12 +103,12 @@ function sendToSpeech() {
   }).then((response) => {
     return response.json(); // Parse response as JSON data
   }).then((items) => {
-    addListItems(items)
+    addIngredients(items)
   })
 }
 
 function addIngredients(items) {
-    for (item of items) {
+    for (const item of items) {
         const div = document.createElement('div');
         div.className = 'form-check';
         div.id = item;
@@ -125,9 +125,7 @@ function addIngredients(items) {
 var checked = true;
 function selectAll() {
     checkboxes = document.getElementsByName('ingredient');
-    for(checkbox of checkboxes) {
-        checkbox.checked = !checked;
-    }
+    for(checkbox of checkboxes) checkbox.checked = !checked;
     checked = !checked;
 }
 
@@ -178,36 +176,6 @@ function clearAllFields() {
     }
   }
 }
-
-// function addListItems(items) {
-//   var itemsList = document.getElementById("items");
-//   itemsList.innerHTML = "";
-//   for (let item of items) { 
-//     var li = document.createElement("li");
-//     var text = document.createTextNode(item);
-//     li.appendChild(text);
-//     // Create the remove button
-//     const removeButton = document.createElement("button");
-//     removeButton.innerText = "Remove";
-//     removeButton.classList.add("remove-button");
-//     removeButton.addEventListener("click", () => {
-//       const itemText = text.textContent;
-//       fetch("/removeSingleItem", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({itemText: itemText})
-//       }).then((response) => {
-//         return response.json();
-//       }).then((items) => {
-//         addListItems(items)
-//       })
-//     });
-//     li.appendChild(removeButton);
-//     itemsList.appendChild(li); 
-//   } 
-// }
 
 //----------------- feedback page functions ------------------------------//
 function submitComment() {

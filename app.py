@@ -83,7 +83,7 @@ def scan_barcode():
     
     User().add_ingredient(barcode)
     db.update_doc(User().username())
-    return User().get_ingredients()
+    return [barcode]
 
 @app.route("/speech", methods=["GET", 'POST'])
 @login_required
@@ -93,7 +93,7 @@ def speech():
         User().add_ingredient(item)
     
     db.update_doc(User().username())
-    return User().get_ingredients()
+    return result
 
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
@@ -109,14 +109,6 @@ def text():
 def savePicture():
     Camera.takePic()
     return ""
-
-# #Remove items route
-# @app.route('/removeItems', methods=['POST'])
-# @login_required
-# def removeItems():
-#     User().clear_ingredients()
-#     db.update_doc(User().username())
-#     return ""
 
 @app.route('/removeItems', methods=['POST'])
 @login_required
