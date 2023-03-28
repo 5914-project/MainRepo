@@ -28,6 +28,7 @@ class User:
 
     def clear_ingredients(self):
         session['ingredients'].clear()
+        session.modified = True
 
     def remove_allergy(self, allergy):
         session['allergies'].remove(allergy)
