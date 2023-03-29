@@ -85,6 +85,18 @@ def scan_barcode():
     db.update_doc(User().username())
     return [barcode]
 
+@app.route('/run-AI', methods=['GET', "POST"])
+@login_required
+def run_AI():
+    image_binary = request.files['image'].read()
+
+    # MODIFY THIS TO RUN THE AI MODEL
+    result_from_AI = "chicken"
+    
+    User().add_ingredient(result_from_AI)
+    db.update_doc(User().username())
+    return [result_from_AI]
+
 @app.route("/speech", methods=["GET", 'POST'])
 @login_required
 def speech():

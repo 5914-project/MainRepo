@@ -30,9 +30,13 @@
             <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
         </form>
         <form class="form">
+            <input type="file" id="imageInputAI" accept="image/*">
+            <button type="button" name = 'runAI' onclick="sendImageToAI()">Run AI model</button>
+        </form>
+        <form class="form">
             <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
         </form>
-       
+
 
         <form class="form">
             <button type="button" name = 'pic' onclick="takePicture()">Take Picture</button>
@@ -49,7 +53,6 @@
         <button type="button" name = 'Search' onclick="search()">Find Recipes</button>
 
         <h2>Current Items:</h2>
-        <!-- <ul id = "items"></ul> -->
 
         <div class="container ingredients" id="ingredients">
             {% for ingredient in session['ingredients'] %}

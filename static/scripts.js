@@ -154,6 +154,23 @@ function takePicture() {
   })
 }
 
+function sendImageToAI() {
+  var imageInput = document.getElementById("imageInputAI");
+  var image = imageInput.files[0];
+
+  var formData = new FormData();
+  formData.append("image", image);
+
+  fetch("/run-AI", {
+    method: "POST",
+    body: formData
+  }).then((response) => {
+    return response.json(); // Parse response as JSON data
+  }).then((items) => {
+    addIngredients(items)
+  })
+}
+
 function startCarousel() {
         var images = document.querySelectorAll(".image-carousel img");
         var index = 0;

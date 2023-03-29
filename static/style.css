@@ -40,7 +40,7 @@ label {
   margin: 10px 0;
 }
 
-button[type="submit"], button[type="button"], #imageInput {
+button[type="submit"], button[type="button"], #imageInput, #imageInputAI {
   padding: 10px 20px;
   font-size: 1.1rem;
   border-radius: 5px;
