@@ -20,11 +20,10 @@ RUN apt-get install -y pulseaudio
 
 COPY . .
 
-WORKDIR /python-docker/AI_Rec
-#Tian:  this action will download the model
-RUN python3 ./AI_recognition.py 
 
-WORKDIR /python-docker
+#Tian:  this action will download the model with a sample run.
+RUN python3 ./AI_Rec/AI_recognition.py 
+
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 

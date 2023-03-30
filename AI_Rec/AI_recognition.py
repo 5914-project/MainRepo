@@ -6,12 +6,15 @@ import torch
 from linformer import Linformer
 from torchvision import datasets, transforms
 from vit_pytorch.efficient import ViT
-# import labels_map
-from . import labels_map
+
+try:
+    from . import labels_map
+except Exception:
+    import labels_map
 
 
 class AIRec():
-    def __init__(self, ViT_path='./ViTmodel/ViTmodel.pth'):
+    def __init__(self, ViT_path='./AI_Rec/ViTmodel/ViTmodel.pth'):
         self.device = 'cpu'
         print(f"Torch: {torch.__version__}, using cpu for compatibility")
         self.ViTTransforms = transforms.Compose(
@@ -96,7 +99,7 @@ class AIRec():
 
         # img_in = torch.unsqueeze(img_in, dim=0)
 
-    def save_pil_img(self, img_pil, path='./imgs/tmp.png'):
+    def save_pil_img(self, img_pil, path='./AI_Rec/imgs/tmp.png'):
         img_pil.save(path)
 
     def show_pil_img(self, img):
@@ -154,8 +157,8 @@ class AIRec():
 
 if __name__ == "__main__":
     AI = AIRec()
-    img = AI.load_pil_img('./imgs/redbull.jpg')
+    img = AI.load_pil_img('./AI_Rec/imgs/redbull.jpg')
     box_list = AI.inference(img)
     img_pil = AI.draw_box_output(img, box_list)
     AI.show_pil_img(img_pil)
-    AI.save_pil_img(img_pil, './imgs/out.png')
+    AI.save_pil_img(img_pil, './AI_Rec/imgs/out.png')
