@@ -6,7 +6,8 @@ import torch
 from linformer import Linformer
 from torchvision import datasets, transforms
 from vit_pytorch.efficient import ViT
-import labels_map
+# import labels_map
+from . import labels_map
 
 
 class AIRec():
@@ -17,7 +18,7 @@ class AIRec():
             [
                 # transforms.ToPILImage(),
                 # transforms.Resize(256),
-                transforms.Resize((224,224)),
+                transforms.Resize((224, 224)),
                 # transforms.CenterCrop(224),
                 transforms.ToTensor(),
             ]
@@ -121,6 +122,14 @@ class AIRec():
                 print(f'score:{score}\ntop3:{top3_str},\ntop3_val={top3_val}')
             return image
 
+    def box_list_to_text_list(self, box_list):
+        txt_list = []
+        with torch.no_grad():
+            for box, score, top3_str, top3_val in box_list:
+                x, y, w, h = tuple(box)
+                txt_list.append(f'score:{score}\ntop3:{top3_str},\ntop3_val={top3_val}')
+            return txt_list
+
     def inference(self, img_pil):
         ###
         # perform inference in one pil img
@@ -149,4 +158,4 @@ if __name__ == "__main__":
     box_list = AI.inference(img)
     img_pil = AI.draw_box_output(img, box_list)
     AI.show_pil_img(img_pil)
-    AI.save_pil_img(img_pil,'./imgs/out.png')
+    AI.save_pil_img(img_pil, './imgs/out.png')

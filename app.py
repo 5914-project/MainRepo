@@ -6,7 +6,9 @@ import Databases.user_db as db
 from Databases.models import User
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
-import json, os, secrets
+import json
+import items
+import AI_Rec
 import Camera.CameraCapture as Camera
 from functools import wraps
 
@@ -152,6 +154,7 @@ def recipes():
     items = json.loads(request.args['items'])
     esResult = es.search(items)
     return render_template('results.html', items=esResult)
+
 
 
 if __name__ == '__main__':
