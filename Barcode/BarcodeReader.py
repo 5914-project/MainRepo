@@ -1,4 +1,4 @@
-import requests
+#import requests
 
 def BarcodeReaderFunc(bar_code):
 	url = "https://barcode-lookup.p.rapidapi.com/v3/products"
