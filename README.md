@@ -60,6 +60,6 @@ docker run -t -i -p 5000:5000 --device /dev/snd schlys/5914-project:latest
 
 Tian: use this command for working in docker env.
 ```
-docker run -it   -v `pwd`:/mapped_path    -p 5000:5000 b7b3c792df42 /bin/bash
-docker run -it   -v ${PWD}:/mapped_path    -p 5000:5000 b7b3c792df42 /bin/bash
+docker run -it   -v `pwd`:/mapped_path    -p 5000:5000 a2f134bff10c /bin/bash
+docker run -it   -v ${PWD}:/mapped_path    -p 5000:5000 a2f134bff10c /bin/bash
 ```
