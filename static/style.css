@@ -1,8 +1,10 @@
 /* Add some default styles */
-.body {
+body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 30px;
+  background-color: white;
+  color: black;
 }
 
 /* Style the header */
@@ -206,10 +208,17 @@ button[type="submit"]:hover, button[type="button"]:hover {
     margin-right: 35%;
   }
 
-.username {
-    float: left;
-    margin-left: 5%;
-}
+  .username {
+      float: left;
+      margin-left: 5%;
+  }
+
+  #dark-mode {
+    position: absolute;
+    top: 60px;
+    left: 150px;
+  }
+
   #items {
     list-style: none; /* remove bullet points */
     padding: 0; /* remove default padding */
@@ -249,4 +258,54 @@ button[type="submit"]:hover, button[type="button"]:hover {
 .ingredients {
     text-align: left;
     padding-left: 45%;
+}
+
+/*Dark mode*/
+body.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+/* Styles for header in dark mode */
+body.dark-mode h1 {
+  color: white;
+}
+
+body.dark-mode h2 {
+  color: white;
+}
+
+/* Style the main image in dark mode */
+body.dark-mode img {
+  filter: brightness(50%);
+}
+
+/* Styles for the text description in dark mode */
+body.dark-mode p {
+  color: white;
+}
+
+/* Styles for the form elements in dark mode */
+body.dark-mode label {
+  color: white;
+}
+
+/* Styles for the buttons in dark mode */
+body.dark-mode button[type="submit"], body.dark-mode button[type="button"], body.dark-mode #imageInput, body.dark-mode #imageInputAI {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode button[type="submit"]:hover, body.dark-mode button[type="button"]:hover {
+  background-color: #005fa3;
+}
+
+/* Styles for the sidebar in dark mode */
+body.dark-mode .sidebar {
+  background-color:grey;
+  color: white;
+}
+
+body.dark-mode a {
+  color: white;
 }
