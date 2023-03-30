@@ -1,14 +1,14 @@
 from elasticsearch import Elasticsearch, helpers
-from ElasticSearch.es_utility import get_data
-import re
+from Databases.es_utility import get_data
+import re, os
 
 ES = None
 
 def initialize():
     global ES
 
-    # bonsai = os.environ['BONSAI_URL']
-    bonsai = 'https://6aim8kq52e:shtc3vqkcj@5914-search-5012416670.us-east-1.bonsaisearch.net:443'
+    #bonsai = os.environ.get('BONSAI_URL')
+    bonsai = 'https://n6cfbimamd:esj58h0n5t@5914-search-2656906543.us-east-1.bonsaisearch.net:443'
     auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
     host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 
@@ -39,29 +39,35 @@ def initialize():
 
 def search(ingredients):
     query_body = {
-        "query": {
-            "multi_match" : {
-            "query":    ingredients, 
-            "fields": [ 'ingredients' ] 
+       'query': {
+            'bool': {
+                'should': [{'match_phrase': {'ingredients': x}} for x in ingredients]
             }
-        }
-  }
-    
+       }
+    }
 
     res = ES.search(index="recipes", body=query_body, size=10)
-    
-    for doc in res["hits"]["hits"]:
+
+    recipes = []
+    for doc in res['hits']['hits']:
+        recipe ={
+           'id': doc['_id'],
+           'title': doc['_source']['title'],
+           'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
+           'instructions': doc['_source']['instructions']
+        }
+        recipes.append(recipe)
+
         print(doc)
         print()
 
-    return res["hits"]["hits"]
-
+    return recipes
 
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
     ES.indices.create(index = 'recipes')
-    return helpers.bulk(ES, get_data('recipes', 'recipes_by_food'), request_timeout=60*3)
+    return helpers.bulk(ES, get_data('recipes', '../recipes_by_food'), request_timeout=60*3)
 
 # delete the index
 def delete(index):

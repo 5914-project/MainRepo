@@ -1,0 +1,34 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <div class="body">
+        <div class="logo-container">
+        <img src="/static/images/Logo.png" alt="Logo" class="logo img">
+        </div>
+        <div class="sidebar">
+            <a href="/">Logout</a>
+        <a href="/home">Home</a>
+        <a class="active" href="/team">Meet the Team</a>
+        <a href="/feedback">User Feedback</a>
+        </div>
+
+        <h1 class="h1">User Feedback</h1>
+
+        <div id="comment-form">
+        <label for="comment">Enter your comments:</label><br>
+        <textarea id="comment" name="comment" rows="5" cols="50"></textarea><br>
+        <button type="button" onclick="submitComment()">Submit</button>
+        </div>
+        
+        <div id="comment-section"></div>
+
+        <form class="form">
+        <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
+        </form>
+    </div>
+    <script>
+        window.onload = function() {
+            loadComments();
+        };
+    </script>
+{% endblock %}

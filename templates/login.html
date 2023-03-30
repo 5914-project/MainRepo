@@ -1,16 +1,55 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login Page</title>
-  </head>
-  <body>
-    <h1>Login Page</h1>
-    <form action="">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username"><br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password"><br><br>
-      <input type="submit" value="Submit">
-    </form> 
-  </body>
-</html>
+{% extends "base.html" %} 
+
+{% block content %}
+   <div class="container" style="text-align: center;">
+        <br><br><br>
+        <h1 class="display-4">Welcome to Smart Recipes</h1>
+        <br><br><br>
+
+        <div class="login-button-width">
+            <ul class="nav nav-pills nav-fill mb-3 pills" id="pills-tab">
+                <li class="nav-item">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button">
+                    Login
+                </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="signup-tab" data-bs-toggle="pill" data-bs-target="#pills-signup" type="button">
+                    Sign Up
+                </button>
+                </li>
+            </ul>
+        </div>
+        <br>
+
+        <div class="tab-content login-width" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-login">
+                <form action="" method="post">
+                    <input type="hidden" name="type" value="2">
+                    <input type="text" name="username" class="form-control" placeholder="Enter your username">
+                    <br>
+                    <input type="password" name="password" class="form-control" placeholder="Enter your password">
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Login">
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-signup">
+                <form action="" method="post">
+                    <input type="hidden" name="type" value="1">
+                    <input type="text" name="username" class="form-control" placeholder="Enter a new username">
+                    <br>
+                    <input type="password" name="password" class="form-control" placeholder="Enter a new password">
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Sign Up">
+                </form>
+            </div>
+        </div>
+        <br>
+        {% if error %}
+            <p class="display-6" style="color: red;">{{ error }}</p>
+        {% endif %}
+   </div>
+{% endblock %}
+
+
+
