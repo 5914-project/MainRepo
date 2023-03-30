@@ -7,8 +7,9 @@
 
 /* Style the header */
 .h1 {
-  font-size: 36px;
+  font-size: 50px;
   margin-bottom: 20px;
+  font-family: "Brush Script MT", cursive;
 }
 
 /* Style the main image */
@@ -28,7 +29,7 @@ label {
 
 /* Style the text description */
 .p {
-  font-size: 20px;
+  font-size: 30px;
   margin-top: 40px;
   margin-bottom: 40px;
   margin-left: 50px;
@@ -111,8 +112,8 @@ button[type="submit"]:hover, button[type="button"]:hover {
   }
   
   .logo {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
   }
   
   .logo-container.hidden {
@@ -122,8 +123,8 @@ button[type="submit"]:hover, button[type="button"]:hover {
 
   .image-carousel {
     position: relative;
-    height: 300px;
-    width: 500px;
+    height: 400px;
+    width: 666px;
     overflow: hidden;
     margin: 0 auto;
   }
