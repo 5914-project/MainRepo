@@ -10,7 +10,17 @@ import items
 import AI_Rec
 import Camera.CameraCapture as Camera
 
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+
 es.initialize()
 db.initialize()
 
@@ -69,17 +79,20 @@ def scan_barcode():
 
 @app.route('/ai-rec/', methods=['GET', "POST"])
 def ai_rec():
-    image_binary = request.files['image'].read()
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
     print("AI Recognizing...")
     # items.addItem(barcode)
     # newItems = items.returnItems()
 
     AI = AI_Rec.AI_recognition.AIRec(ViT_path='./AI_Rec/ViTmodel/ViTmodel.pth')
-    img = AI.load_pil_img('./AI_Rec/imgs/redbull.jpg')
+    img = AI.load_pil_img(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     box_list = AI.inference(img)
     img_pil = AI.draw_box_output(img, box_list)
     # AI.show_pil_img(img_pil)
-    AI.save_pil_img(img_pil, './AI_Rec/imgs/out.png')
+    AI.save_pil_img(img_pil, os.path.join(app.config['UPLOAD_FOLDER'],"out.png"))
     return AI.box_list_to_text_list(box_list)
 
 
