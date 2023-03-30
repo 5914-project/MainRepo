@@ -33,6 +33,7 @@
     <form class="form">
       <input type="file" id="imageInput" accept="image/*">
       <button type="button" name = 'Scan' onclick="sendImageToBarcodeScanner()">Scan Barcode</button>
+      <button type="button" name = 'Scan' onclick="sendImageToAIRec()">AI Recognize</button>
     </form>
   </form class="form">
   <form class="form">
@@ -74,6 +75,25 @@
         addListItems(items)
       })
     }
+
+
+    function sendImageToAIRec() {
+      var imageInput = document.getElementById("imageInput");
+      var image = imageInput.files[0];
+
+      var formData = new FormData();
+      formData.append("image", image);
+
+      fetch("/ai-rec", {
+        method: "POST",
+        body: formData
+      }).then((response) => {
+        return response.json(); // Parse response as JSON data
+      }).then((items) => {
+        addListItems(items)
+      })
+    }
+
 
     function sendToSpeech() {
       event.preventDefault();

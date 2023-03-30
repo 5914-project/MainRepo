@@ -7,11 +7,13 @@ import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json
 import items
+import AI_Rec
 import Camera.CameraCapture as Camera
 
 app = Flask(__name__)
 es.initialize()
 db.initialize()
+
 
 @app.route('/', methods=["GET", "POST"])
 def login():
@@ -26,29 +28,30 @@ def login():
             error = db.signup(username, password)
         else:
             error = db.login(username, password)
-        
+
         if not error:
-                return redirect(url_for('home'))
-       
+            return redirect(url_for('home'))
+
     return render_template('login.html', error=error)
 
 
-
-#Home, Team, and User Feedback route
+# Home, Team, and User Feedback route
 @app.route("/home/", methods=["GET", "POST"])
 def home():
     return render_template("home.html")
 
+
 @app.route("/team/", methods=["GET", "POST"])
 def team():
     return render_template("team.html")
+
 
 @app.route("/feedback/", methods=["GET", "POST"])
 def feedback():
     return render_template("feedback.html")
 
 
-#Input Data Route
+# Input Data Route
 @app.route('/scan-barcode/', methods=['GET', "POST"])
 def scan_barcode():
     image_binary = request.files['image'].read()
@@ -56,10 +59,29 @@ def scan_barcode():
     # pass the image binary data to the BarcodeScanner function
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
-    
+
     items.addItem(barcode)
     newItems = items.returnItems()
     return newItems
+
+# Input Data Route
+
+
+@app.route('/ai-rec/', methods=['GET', "POST"])
+def ai_rec():
+    image_binary = request.files['image'].read()
+    print("AI Recognizing...")
+    # items.addItem(barcode)
+    # newItems = items.returnItems()
+
+    AI = AI_Rec.AI_recognition.AIRec(ViT_path='./AI_Rec/ViTmodel/ViTmodel.pth')
+    img = AI.load_pil_img('./AI_Rec/imgs/redbull.jpg')
+    box_list = AI.inference(img)
+    img_pil = AI.draw_box_output(img, box_list)
+    # AI.show_pil_img(img_pil)
+    AI.save_pil_img(img_pil, './AI_Rec/imgs/out.png')
+    return AI.box_list_to_text_list(box_list)
+
 
 @app.route("/speech/", methods=["GET", 'POST'])
 def speech():
@@ -69,23 +91,29 @@ def speech():
     newItems = items.returnItems()
     return newItems
 
+
 @app.route('/text/', methods=['GET', 'POST'])
 def text():
     ingredients = request.json.get('ingredients')
     items.addItem(ingredients)
     newItems = items.returnItems()
+    print(f"adding item:{newItems}")
     return newItems
+
 
 @app.route('/savePicture/', methods=['GET', 'POST'])
 def savePicture():
     Camera.takePic()
     return ""
 
-#Remove items route
+# Remove items route
+
+
 @app.route('/removeItems/', methods=['POST'])
 def removeItems():
     items.removeItems()
     return ""
+
 
 @app.route('/removeSingleItem/', methods=['POST'])
 def removeSingleItem():
@@ -94,23 +122,29 @@ def removeSingleItem():
     newItems = items.returnItems()
     return newItems
 
-#Return items route
+# Return items route
+
+
 @app.route('/searchItems/', methods=['POST'])
 def searchItems():
     ingredients = items.returnItems()
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
-#Page Reader Route
+# Page Reader Route
+
+
 @app.route('/read-page/', methods=['POST'])
 def read_page():
     webpage = request.json.get('webpage')
     text_to_speech(webpage)
+
 
 @app.route('/recipes/', methods=['GET', 'POST'])
 def recipes():
     items = json.loads(request.args['items'])
     esResult = es.search(items)
     return render_template('list.html', items=esResult)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
