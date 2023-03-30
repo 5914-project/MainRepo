@@ -20,5 +20,12 @@ RUN apt-get install -y pulseaudio
 
 COPY . .
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 60 app:app
+WORKDIR /python-docker/AI_Rec
+#Tian:  this action will download the model
+RUN python3 ./AI_recognition.py 
+
+WORKDIR /python-docker
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
 
