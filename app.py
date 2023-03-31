@@ -6,8 +6,7 @@ import Databases.user_db as db
 from Databases.models import User
 import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
-import json
-import items
+import json, os, secrets
 import AI_Rec
 import Camera.CameraCapture as Camera
 from functools import wraps
@@ -96,12 +95,6 @@ def scan_barcode():
     User().add_ingredient(barcode)
     db.update_doc(User().username())
     return [barcode]
-
-    items.addItem(barcode)
-    newItems = items.returnItems()
-    return newItems
-
-# Input Data Route
 
 
 @app.route('/ai-rec/', methods=['GET', "POST"])
