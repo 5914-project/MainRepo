@@ -125,7 +125,8 @@ def text():
 @app.route('/generate-puzzle', methods=['GET', 'POST'])
 @login_required
 def generate_puzzle():
-    puzzle = WS.create_word_search(['chicken', 'beef'])
+    curr_items = request.json.get('currItems', [])
+    puzzle = WS.create_word_search(curr_items)
     response_data = {"puzzle": puzzle}
     return json.dumps(response_data)
 

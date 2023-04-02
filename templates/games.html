@@ -14,19 +14,39 @@
             <a href="/games">Games</a>
         </div>
 
+        <h1>Games</h1>
+        <p>Have fun with ingredients!</p>
+
+        <h2>Word Search</h2>
+        <p>
+            The first game you can play is Word Search, where you're allowed to enter as many ingredients
+            you want and try searching for them in a randomized puzzle.
+        </p>
+        <label for="text-box">Enter ingredients:</label>
+        <input type="text" id="text-box" onkeydown="storeIngredient(event)">
         <button onclick="generatePuzzle()">Generate Puzzle</button>
 
         <div id="puzzlePlaceholder"></div>
         
         <script>
+            let currItems = [];
+
             function generatePuzzle() {
                 fetch("/generate-puzzle", {
-                    method: "POST"
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        currItems: currItems
+                    })
                 }).then((response) => {
                     return response.json();
                 }).then((str) => {
-                    addPuzzle(str)
-                })
+                    addPuzzle(str);
+                });
+
+                currItems = [];
             }
 
             function addPuzzle(data) {
@@ -46,6 +66,14 @@
                 });
 
                 puzzlePlaceholder.appendChild(div)
+            }
+
+            function storeIngredient(event) {
+                if (event.keyCode === 13) { // check if Enter key was pressed
+                    let data = document.getElementById("text-box").value;
+                    currItems.push(data)
+                    document.getElementById("text-box").value = "";
+                }
             }
         </script>
     </div>
