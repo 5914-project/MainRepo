@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <div class="body">
+        <button onclick="toggleDarkMode()" id="dark-mode">Toggle Dark Mode</button>
+        <div class="logo-container">
+            <img src="/static/images/Logo.png" alt="Logo" class="logo img">
+        </div>
+        <div class="sidebar">
+            <a href="/">Logout</a>
+            <a href="/home">Home</a>
+            <a class="active" href="/team">Meet the Team</a>
+            <a href="/feedback">User Feedback</a>
+            <a href="/games">Games</a>
+        </div>
+
+        <button onclick="generatePuzzle()">Generate Puzzle</button>
+
+        <div id="puzzlePlaceholder"></div>
+        
+        <script>
+            function generatePuzzle() {
+                fetch("/generate-puzzle", {
+                    method: "POST"
+                }).then((response) => {
+                    return response.json();
+                }).then((str) => {
+                    addPuzzle(str)
+                })
+            }
+
+            function addPuzzle(data) {
+                const puzzlePlaceholder = document.getElementById("puzzlePlaceholder");
+                while (puzzlePlaceholder.firstChild) {
+                    puzzlePlaceholder.removeChild(puzzlePlaceholder.firstChild);
+                }
+                const div = document.createElement('div');
+                div.className = 'puzzle';
+                for (let i = 0; i < data.puzzle.length; i++) {
+                    const letter = data.puzzle[i];
+                    const p = document.createElement('p');
+                    p.innerHTML = letter === ' ' ? '&nbsp;' : letter;
+                    div.appendChild(p);
+                }
+                document.getElementById('puzzlePlaceholder').appendChild(div)
+            }
+        </script>
+    </div>
+{% endblock %}

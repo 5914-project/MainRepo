@@ -8,6 +8,7 @@ import HelperMethods.HelperMethods as HM
 from Speech.TextToSpeech import text_to_speech
 import json, os, secrets
 import Camera.CameraCapture as Camera
+import WordSearch.WordSearch as WS
 from functools import wraps
 
 app = Flask(__name__)
@@ -70,6 +71,11 @@ def team():
 def feedback():
     return render_template("feedback.html")
 
+@app.route("/games", methods=["GET", "POST"])
+@login_required
+def games():
+    return render_template("games.html")
+
 
 #Input Data Route
 @app.route('/scan-barcode', methods=['GET', "POST"])
@@ -115,6 +121,13 @@ def text():
     User().add_ingredient(ingredient)
     db.update_doc(User().username())
     return jsonify([ingredient])
+
+@app.route('/generate-puzzle', methods=['GET', 'POST'])
+@login_required
+def generate_puzzle():
+    puzzle = WS.create_word_search(['chicken', 'beef'])
+    response_data = {"puzzle": puzzle}
+    return json.dumps(response_data)
 
 @app.route('/savePicture', methods=['GET', 'POST'])
 @login_required

@@ -260,6 +260,42 @@ button[type="submit"]:hover, button[type="button"]:hover {
     padding-left: 45%;
 }
 
+
+.puzzle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(40px, 1fr));
+  grid-gap: 0;
+  justify-items: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 10px;
+  position: relative;
+  top: 100px;
+  left: 100px;
+}
+
+.puzzle p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.puzzle .letter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: white;
+  border: 1px solid black;
+}
+
 /*Dark mode*/
 body.dark-mode {
   background-color: black;
