@@ -3,7 +3,7 @@ import random
 def create_word_search(words):
     # Determine the size of the grid
     max_word_length = len(max(words, key=len))
-    grid_size = max_word_length + 2
+    grid_size = max_word_length * 2
     
     # Create a blank grid
     grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
