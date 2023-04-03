@@ -15,17 +15,15 @@
         </div>
 
         <h1>Games</h1>
-        <p>Have fun with ingredients!</p>
-
         <h2>Word Search</h2>
         <p>
             The first game you can play is Word Search, where you're allowed to enter as many ingredients
-            you want and try searching for them in a randomized puzzle.
+            you want and try searching for them in a randomnized puzzle.
         </p>
         <label for="text-box">Enter ingredients:</label>
         <input type="text" id="text-box" onkeydown="storeIngredient(event)">
+        <div id = "currItems"></div>
         <button onclick="generatePuzzle()">Generate Puzzle</button>
-
         <div id="puzzlePlaceholder"></div>
         
         <script>
@@ -73,7 +71,22 @@
                     let data = document.getElementById("text-box").value;
                     currItems.push(data)
                     document.getElementById("text-box").value = "";
+                    updateItems();
                 }
+            }
+
+            function updateItems() {
+                const currItemsDiv = document.getElementById('currItems');
+                const itemList = document.createElement('ul');
+
+                currItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                itemList.appendChild(listItem); 
+                });
+
+                currItemsDiv.innerHTML = ''; // Clear the contents of the div
+                currItemsDiv.appendChild(itemList); // Add the unordered list to the div
             }
         </script>
     </div>
