@@ -194,17 +194,30 @@ function clearAllFields() {
   }
 }
 
-//----------------- home page functions ------------------------------//
-function toggleLikes(id) {
-    let like = document.getElementById(id);
+//----------------- results page functions ------------------------------//
+function toggleLikes(like) {
+    let counter = document.getElementById('counter-' + like.id);
+    
     if (like.name == 'none') {
         like.src = "static/images/like.png";
-        like.name = "liked"
+        like.name = "liked";
+        counter.innerHTML = Number(counter.innerHTML) + 1;
     } else {
         like.src = "static/images/like_outline.png";
-        like.name = "none"
+        like.name = "none";
+        counter.innerHTML = Number(counter.innerHTML) - 1;
     }
-    // alert('test')
+
+    fetch('/like', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'id': like.id,
+            'count': counter.innerHTML
+        })
+    })
 }
 
 //Dark mode

@@ -67,12 +67,12 @@ def search(ingredients):
 
 
 
-def like_recipe(doc):
+def update_likes(id, count):
    ES.update(
       index='recipes',
-      id=doc['_id'],
+      id=id,
       body={
-        'doc': {'likes': doc['_source']['likes'] + 1}
+        'doc': {'likes': count}
       }
     )
    
@@ -86,5 +86,8 @@ def index():
 def delete(index):
     ES.indices.delete(index=index, ignore=[400, 404])
 
+
+# initialize()
+# index()
 
 #resp = ES.get(index='recipes', id='uY2vdocB_6VcH_YNzbpj')

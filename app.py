@@ -168,5 +168,14 @@ def recipes():
     return render_template('results.html', items=esResult)
 
 
+@app.route('/like', methods=['POST'])
+@login_required
+def like():
+    id = request.json.get('id')
+    count = int(request.json.get('count'))
+    es.update_likes(id, count)
+    return jsonify(status='200')
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
