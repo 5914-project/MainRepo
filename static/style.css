@@ -260,6 +260,27 @@ button[type="submit"]:hover, button[type="button"]:hover {
     padding-left: 45%;
 }
 
+
+.like-container {
+    display: inline-block;
+    width:10%
+}
+
+.title-container {
+    display: inline-block;
+    width: 90%;
+}
+
+.like {
+    height: 30px;
+    width: 30px;
+}
+
+.like:hover {
+    cursor: pointer;
+}
+
+
 .puzzle-container {
   display: inline-block;
   height: 350px;

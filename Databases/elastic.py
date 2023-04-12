@@ -54,7 +54,8 @@ def search(ingredients):
            'id': doc['_id'],
            'title': doc['_source']['title'],
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
-           'instructions': doc['_source']['instructions']
+           'instructions': doc['_source']['instructions'],
+           'likes': doc['_source']['likes']
         }
         recipes.append(recipe)
 
@@ -63,6 +64,18 @@ def search(ingredients):
 
     return recipes
 
+
+
+
+def like_recipe(doc):
+   ES.update(
+      index='recipes',
+      id=doc['_id'],
+      body={
+        'doc': {'likes': doc['_source']['likes'] + 1}
+      }
+    )
+   
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
@@ -73,3 +86,5 @@ def index():
 def delete(index):
     ES.indices.delete(index=index, ignore=[400, 404])
 
+
+#resp = ES.get(index='recipes', id='uY2vdocB_6VcH_YNzbpj')

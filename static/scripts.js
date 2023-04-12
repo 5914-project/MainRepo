@@ -194,6 +194,19 @@ function clearAllFields() {
   }
 }
 
+//----------------- home page functions ------------------------------//
+function toggleLikes(id) {
+    let like = document.getElementById(id);
+    if (like.name == 'none') {
+        like.src = "static/images/like.png";
+        like.name = "liked"
+    } else {
+        like.src = "static/images/like_outline.png";
+        like.name = "none"
+    }
+    // alert('test')
+}
+
 //Dark mode
 function toggleDarkMode() {
   var body = document.querySelector('body');

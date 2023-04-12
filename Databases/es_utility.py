@@ -18,8 +18,9 @@ def get_data(index, dir):
         data = json.load(f)
 
         for val in data.values():
+            val['likes'] = 0
             content.append({
                 '_index': index,
-                '_source': val
+                '_source': val,
             })
     return content

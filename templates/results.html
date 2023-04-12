@@ -12,14 +12,17 @@
         <div class="accordion">
             {% for item in items %}
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-h-{{ item.id }}">
-                        <button class="accordion-button collapsed" type="acc" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <div class="title-container">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}">
                             <span class="display-1 body-text title-text"><strong>
                                 {{ item.title }}
                             </strong></span>
                         </button>
-                    </h2>
-                    <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-h-{{ item.id }}">
+                    </div><div class="like-container">
+                        <img src="static/images/like_outline.png" alt="like" class="like" id="{{ item.id }}" name="none" onclick="toggleLikes(this.id)">
+                        <span>{{ item.likes }}</span>
+                    </div>
+                    <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
                         <div class="accordion-body" style="text-align: left;">
                             <strong>Ingredients</strong>
                             <ul>
