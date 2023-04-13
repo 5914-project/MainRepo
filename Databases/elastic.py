@@ -67,8 +67,20 @@ def search(ingredients):
 
     return recipes
 
+# Get a recipe by its ID from Elasticsearch index. Makes sharing the recipe easier.
+def get_recipe_by_id(recipe_id):
+    # Fetch the recipe document from the index
+    res = ES.get(index="recipes", id=recipe_id)
 
-
+    # Extract the recipe data and return as a dictionary
+    recipe = {
+        'id': res['_id'],
+        'title': res['_source']['title'],
+        'ingredients': [x.replace('ADVERTISEMENT', '') for x in res['_source']['ingredients']],
+        'instructions': res['_source']['instructions'],
+        'likes': res['_source']['likes']
+    }
+    return recipe
 def get_recipes(ids):
     recipes = []
 

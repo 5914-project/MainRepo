@@ -19,13 +19,13 @@ db.initialize()
 
 # Decorators
 def login_required(f):
-  @wraps(f)
-  def wrap(*args, **kwargs):
-    if 'logged_in' in session:
-      return f(*args, **kwargs)
-    else:
-      return redirect('/')
-  return wrap
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            return redirect('/')
+    return wrap
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -41,11 +41,11 @@ def login():
             error, user_data = db.signup(username, password)
         else:
             error, user_data = db.login(username, password)
-        
+
         if not error:
-                User().start_session(user_data)
-                return redirect(url_for('home'))
-       
+            User().start_session(user_data)
+            return redirect(url_for('home'))
+
     return render_template('login.html', error=error)
 
 
@@ -91,7 +91,7 @@ def scan_barcode():
     # pass the image binary data to the BarcodeScanner function
     barcode = BS.BarcodeScanner(image_binary)
     barcode = HM.get_keyword(barcode)
-    
+
     User().add_ingredient(barcode)
     db.update_doc(User().username())
     return [barcode]
@@ -103,7 +103,7 @@ def run_AI():
 
     # MODIFY THIS TO RUN THE AI MODEL
     result_from_AI = "chicken"
-    
+
     User().add_ingredient(result_from_AI)
     db.update_doc(User().username())
     return [result_from_AI]
@@ -114,7 +114,7 @@ def speech():
     result = speech_to_text()
     for item in result:
         User().add_ingredient(item)
-    
+
     db.update_doc(User().username())
     return result
 
@@ -173,6 +173,14 @@ def recipes():
     return render_template('results.html', items=esResult)
 
 
+# Used to create individual recipe pages (makes it easier to share them)
+@app.route('/recipe/<string:recipe_id>', methods=['GET'])
+@login_required
+def recipe(recipe_id):
+    # Fetch the recipe from Elasticsearch using the recipe_id
+    recipe = es.get_recipe_by_id(recipe_id)
+    return render_template('recipe.html', recipe=recipe)
+
 @app.route('/like', methods=['POST'])
 @login_required
 def like():
@@ -181,7 +189,7 @@ def like():
     liked = bool(request.json.get('liked'))
 
     es.update_likes(id, count)
-    
+
     if liked:
         User().add_liked(id)
     else:
