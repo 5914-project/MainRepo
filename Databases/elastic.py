@@ -1,8 +1,10 @@
 from elasticsearch import Elasticsearch, helpers
 from Databases.es_utility import get_data
+from Databases.models import User
 import re, os
 
 ES = None
+INDEX = 'recipes'
 
 def initialize():
     global ES
@@ -46,7 +48,7 @@ def search(ingredients):
        }
     }
 
-    res = ES.search(index="recipes", body=query_body, size=10)
+    res = ES.search(index=INDEX, body=query_body, size=10)
 
     recipes = []
     for doc in res['hits']['hits']:
@@ -55,7 +57,8 @@ def search(ingredients):
            'title': doc['_source']['title'],
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
            'instructions': doc['_source']['instructions'],
-           'likes': doc['_source']['likes']
+           'likes': doc['_source']['likes'],
+           'liked': doc['_id'] in User().get_liked()
         }
         recipes.append(recipe)
 
@@ -69,7 +72,7 @@ def search(ingredients):
 
 def update_likes(id, count):
    ES.update(
-      index='recipes',
+      index=INDEX,
       id=id,
       body={
         'doc': {'likes': count}
@@ -79,8 +82,8 @@ def update_likes(id, count):
 
 # creates index and add json data to index, do not call before deleting the index first
 def index():
-    ES.indices.create(index = 'recipes')
-    return helpers.bulk(ES, get_data('recipes', '../recipes_by_food'), request_timeout=60*3)
+    ES.indices.create(index = INDEX)
+    return helpers.bulk(ES, get_data(INDEX, '../recipes_by_food'), request_timeout=60*3)
 
 # delete the index
 def delete(index):
