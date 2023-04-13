@@ -81,7 +81,6 @@ def get_recipe_by_id(recipe_id):
         'likes': res['_source']['likes']
     }
     return recipe
-def like_recipe(doc):
 def get_recipes(ids):
     recipes = []
 
