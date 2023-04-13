@@ -1,5 +1,46 @@
 {% extends "base.html" %} 
 
 {% block content %}
+    <div class="body container">
+        <div class="sidebar">
+            <a onclick="logout()">Logout</a>
+            <a href="/home">Home</a>
+            <a href="/liked">Liked Recipes</a>
+            <a href="/team">Meet the Team</a>
+            <a href="/feedback">User Feedback</a>
+            <a href="/games">Games</a>
+        </div>
+        <h2>Liked Recipes</h2>
 
+        <div class="accordion">
+            {% for item in items %}
+                <div class="accordion-item">
+                    <div class="title-container">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}">
+                            <span class="display-1 body-text title-text"><strong>
+                                {{ item.title }}
+                            </strong></span>
+                        </button>
+                    </div><div class="like-container">
+                        <img src="static/images/{{ item.liked }}.png" alt="like" class="like" id="{{ item.id }}" name="{{ item.liked }}" onclick="toggleLikes(this)">
+                        <span id="counter-{{ item.id }}">{{ item.likes }}</span>
+                    </div>
+                    <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
+                        <div class="accordion-body" style="text-align: left;">
+                            <strong>Ingredients</strong>
+                            <ul>
+                                {% for ingredient in item.ingredients %}
+                                    <li>{{ ingredient }}</li>
+                                {% endfor %}
+                            </ul>
+                            <br>
+                            <strong>Instructions</strong>
+                            <br>
+                            {{ item.instructions }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

@@ -52,7 +52,7 @@ def search(ingredients):
 
     recipes = []
     for doc in res['hits']['hits']:
-        recipe ={
+        recipe = {
            'id': doc['_id'],
            'title': doc['_source']['title'],
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
@@ -68,6 +68,23 @@ def search(ingredients):
     return recipes
 
 
+
+def get_recipes(ids):
+    recipes = []
+
+    for id in ids:
+        result = ES.get(index=INDEX, id=id)
+        recipe = {
+            'id': result['_id'],
+           'title': result['_source']['title'],
+           'ingredients': [x.replace('ADVERTISEMENT', '') for x in result['_source']['ingredients']],
+           'instructions': result['_source']['instructions'],
+           'likes': result['_source']['likes'],
+           'liked': result['_id'] in User().get_liked()
+        }
+        recipes.append(recipe)
+
+    return recipes
 
 
 def update_likes(id, count):

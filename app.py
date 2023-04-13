@@ -65,7 +65,7 @@ def home():
 @app.route("/liked", methods=["GET", "POST"])
 @login_required
 def liked():
-    return render_template('liked.html')
+    return render_template('liked.html', items=es.get_recipes(User().get_liked()))
 
 @app.route("/team", methods=["GET", "POST"])
 def team():

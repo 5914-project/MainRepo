@@ -114,8 +114,8 @@ button[type="submit"]:hover, button[type="button"]:hover {
   }
   
   .logo {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
   }
   
   .logo-container.hidden {
