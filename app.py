@@ -56,11 +56,16 @@ def signout():
     return redirect('/')
 
 
-#Home, Team, and User Feedback route
+#Home, Team, Liked ,and User Feedback route
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
     return render_template("home.html", items={'username':User().username()})
+
+@app.route("/liked", methods=["GET", "POST"])
+@login_required
+def liked():
+    return render_template('liked.html')
 
 @app.route("/team", methods=["GET", "POST"])
 def team():
@@ -181,7 +186,7 @@ def like():
         User().add_liked(id)
     else:
         User().remove_liked(id)
-        
+
     db.update_doc(User().username())
     return jsonify(status='200')
 
