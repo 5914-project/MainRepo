@@ -7,19 +7,33 @@ class User:
         session['username'] = data['username']
         session['ingredients'] = data['ingredients']
         session['allergies'] = data['allergies']
+        session['liked'] = data['liked']
 
     def signout(self):
         session.clear()
 
     def username(self):
         return session['username']
-
-    def add_ingredient(self, ingredient):
-        session['ingredients'].append(ingredient)
-        session.modified = True
+    
+    def get_ingredients(self):
+        return session['ingredients']
+    
+    def get_allergies(self):
+        return session['allergies']
+    
+    def get_liked(self):
+        return session['liked']
 
     def add_allergy(self, allergy):
         session['allergies'].append(allergy)
+        session.modified = True
+
+    def remove_allergy(self, allergy):
+        session['allergies'].remove(allergy)
+        session.modified = True
+
+    def add_ingredient(self, ingredient):
+        session['ingredients'].append(ingredient)
         session.modified = True
 
     def remove_ingredient(self, ingredient):
@@ -30,12 +44,10 @@ class User:
         session['ingredients'].clear()
         session.modified = True
 
-    def remove_allergy(self, allergy):
-        session['allergies'].remove(allergy)
+    def add_liked(self, id):
+        session['liked'].append(id)
         session.modified = True
 
-    def get_ingredients(self):
-        return session['ingredients']
-    
-    def get_allergies(self):
-        return session['allergies']
+    def remove_liked(self, id):
+        session['liked'].remove(id)
+        session.modified = True

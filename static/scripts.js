@@ -194,17 +194,33 @@ function clearAllFields() {
   }
 }
 
-//----------------- home page functions ------------------------------//
-function toggleLikes(id) {
-    let like = document.getElementById(id);
-    if (like.name == 'none') {
-        like.src = "static/images/like.png";
-        like.name = "liked"
+//----------------- results page functions ------------------------------//
+function toggleLikes(like) {
+    let counter = document.getElementById('counter-' + like.id);
+    let liked = true;
+    
+    if (like.name == 'False') {
+        like.src = "static/images/True.png";
+        like.name = "True";
+        counter.innerHTML = Number(counter.innerHTML) + 1;
     } else {
-        like.src = "static/images/like_outline.png";
-        like.name = "none"
+        like.src = "static/images/False.png";
+        like.name = "False";
+        counter.innerHTML = Number(counter.innerHTML) - 1;
+        liked = false;
     }
-    // alert('test')
+
+    fetch('/like', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'id': like.id,
+            'count': counter.innerHTML,
+            'liked': liked
+        })
+    })
 }
 
 //Dark mode

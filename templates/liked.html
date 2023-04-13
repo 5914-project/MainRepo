@@ -2,12 +2,15 @@
 
 {% block content %}
     <div class="body container">
-        <div class="back-button" onclick="goBack()">Back</div>
-        <div class="logo-container">
-            <img src="/static/images/Logo.png" alt="Logo" class="logo">
+        <div class="sidebar">
+            <a onclick="logout()">Logout</a>
+            <a href="/home">Home</a>
+            <a href="/liked">Liked Recipes</a>
+            <a href="/team">Meet the Team</a>
+            <a href="/feedback">User Feedback</a>
+            <a href="/games">Games</a>
         </div>
-        <h1 class="h1">Smart Recipes</h1>
-        <h2>Recipes Found:</h2>
+        <h2>Liked Recipes</h2>
 
         <div class="accordion">
             {% for item in items %}
@@ -39,14 +42,5 @@
                 </div>
             {% endfor %}
         </div>
-        <br>
-        <form>
-            <button type="button" name = 'Read' onclick="readWebpage()">Read Webpage</button>
-        </form>
     </div>
-  <script>
-    hideWhenScrolled(".back-button");
-    hideWhenScrolled(".logo-container");
-  </script>
 {% endblock %}
-
