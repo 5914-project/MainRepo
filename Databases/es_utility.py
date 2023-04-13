@@ -18,7 +18,7 @@ def get_data(index, dir):
         data = json.load(f)
 
         for val in data.values():
-            val['likes'] = 0
+            val['likes'] = random.randint(0, 10)
             content.append({
                 '_index': index,
                 '_source': val,

@@ -56,11 +56,16 @@ def signout():
     return redirect('/')
 
 
-#Home, Team, and User Feedback route
+#Home, Team, Liked ,and User Feedback route
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
     return render_template("home.html", items={'username':User().username()})
+
+@app.route("/liked", methods=["GET", "POST"])
+@login_required
+def liked():
+    return render_template('liked.html', items=es.get_recipes(User().get_liked()))
 
 @app.route("/team", methods=["GET", "POST"])
 def team():
@@ -174,6 +179,24 @@ def recipe(recipe_id):
     # Fetch the recipe from Elasticsearch using the recipe_id
     recipe = es.get_recipe_by_id(recipe_id)
     return render_template('recipe.html', recipe=recipe)
+
+
+@app.route('/like', methods=['POST'])
+@login_required
+def like():
+    id = request.json.get('id')
+    count = int(request.json.get('count'))
+    liked = bool(request.json.get('liked'))
+
+    es.update_likes(id, count)
+    
+    if liked:
+        User().add_liked(id)
+    else:
+        User().remove_liked(id)
+
+    db.update_doc(User().username())
+    return jsonify(status='200')
 
 
 if __name__ == '__main__':
