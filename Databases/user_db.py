@@ -31,7 +31,9 @@ def signup(username, password):
             'username': username, 
             'password': bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()), 
             'ingredients':[], 
-            'allergies':[]})
+            'allergies':[],
+            'liked': []
+        })
         
         return None, DB.find_one({'username': username})
     
@@ -42,6 +44,7 @@ def update_doc(username):
                   {'$set': {
                             'ingredients': User().get_ingredients(),
                             'allergies': User().get_allergies(),
-                            'username': User().username()
+                            'username': User().username(),
+                            'liked': User().get_liked()
                             }
                     })

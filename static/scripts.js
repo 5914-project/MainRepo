@@ -197,6 +197,7 @@ function clearAllFields() {
 //----------------- results page functions ------------------------------//
 function toggleLikes(like) {
     let counter = document.getElementById('counter-' + like.id);
+    let liked = true;
     
     if (like.name == 'none') {
         like.src = "static/images/like.png";
@@ -206,6 +207,7 @@ function toggleLikes(like) {
         like.src = "static/images/like_outline.png";
         like.name = "none";
         counter.innerHTML = Number(counter.innerHTML) - 1;
+        liked = false;
     }
 
     fetch('/like', {
@@ -215,7 +217,8 @@ function toggleLikes(like) {
         },
         body: JSON.stringify({
             'id': like.id,
-            'count': counter.innerHTML
+            'count': counter.innerHTML,
+            'liked': liked
         })
     })
 }

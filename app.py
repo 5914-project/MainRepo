@@ -173,7 +173,16 @@ def recipes():
 def like():
     id = request.json.get('id')
     count = int(request.json.get('count'))
+    liked = bool(request.json.get('liked'))
+
     es.update_likes(id, count)
+    
+    if liked:
+        User().add_liked(id)
+    else:
+        User().remove_liked(id)
+        
+    db.update_doc(User().username())
     return jsonify(status='200')
 
 
