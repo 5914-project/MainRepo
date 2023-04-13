@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="body container">
+    <div class="back-button" onclick="goBack()">Back</div>
     <div class="logo-container">
         <img src="/static/images/Logo.png" alt="Logo" class="logo">
     </div>
@@ -17,17 +18,15 @@
                                 {{ item.title }}
                             </strong></span>
                 </button>
+            </div><div class="like-container">
+            <img src="static/images/like_outline.png" alt="like" class="like" id="{{ item.id }}" name="none" onclick="toggleLikes(this.id)">
+            <span>{{ item.likes }}</span>
+        </div>
+            <!-- Facebook share button -->
+            <div class="fb-share-container">
+                <div class="fb-share-button" data-href="{{ url_for('recipes', _external=True) }}" data-layout="button_count" data-size="small"></div>
             </div>
-            <div class="actions-container">
-                <div class="like-container">
-                    <img src="static/images/like_outline.png" alt="like" class="like" id="{{ item.id }}" name="none" onclick="toggleLikes(this.id)">
-                    <span>{{ item.likes }}</span>
-            </div>
-                <!-- Facebook share button -->
-                <div class="fb-share-button-container">
-                    <div class="fb-share-button" data-href="{{ url_for('recipe', recipe_id=item.id, _external=True) }}" data-layout="button_count" data-size="small"></div>
-                </div>
-                <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
+            <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
                 <div class="accordion-body" style="text-align: left;">
                     <strong>Ingredients</strong>
                     <ul>
@@ -54,4 +53,3 @@
     hideWhenScrolled(".logo-container");
   </script>
 {% endblock %}
-</div>
