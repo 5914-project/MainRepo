@@ -167,6 +167,14 @@ def recipes():
     esResult = es.search(items)
     return render_template('results.html', items=esResult)
 
+# Used to create individual recipe pages (makes it easier to share them)
+@app.route('/recipe/<string:recipe_id>', methods=['GET'])
+@login_required
+def recipe(recipe_id):
+    # Fetch the recipe from Elasticsearch using the recipe_id
+    recipe = es.get_recipe_by_id(recipe_id)
+    return render_template('recipe.html', recipe=recipe)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

@@ -293,6 +293,17 @@ button[type="submit"]:hover, button[type="button"]:hover {
   font-size: 20px;
 }
 
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.fb-share-button-container {
+  margin-top: 5px;
+  margin-right: 15px;
+}
+
 /*Dark mode*/
 body.dark-mode {
   background-color: black;
