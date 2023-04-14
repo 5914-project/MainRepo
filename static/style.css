@@ -261,25 +261,49 @@ button[type="submit"]:hover, button[type="button"]:hover {
 }
 
 
-.like-container {
-    display: inline-block;
-    width:10%
-}
-
 .title-container {
     display: inline-block;
-    width: 90%;
+    width: 80%;
 }
-
+.media-container {
+    display: inline-block;
+    width:20%;
+    text-align: left;
+}
+.like-container {
+    display: inline-block;
+    width: 50%; 
+    padding-left: 15%;
+    /* background-color: #005fa3; */
+}
+.fb-container {
+    /* float: right; */
+    display: inline-block;
+    width: 50%;
+    padding-left: 7%;
+    /* background-color: red;*/
+} 
 .like {
     height: 30px;
     width: 30px;
 }
-
 .like:hover {
     cursor: pointer;
 }
 
+@media (max-width: 995px) {
+    .title-container {
+        width: 65%;
+    }
+    .media-container {
+        width: 35%;
+    }
+}
+@media (max-width: 635px) {
+    .like-container {
+        display: block;
+    }
+}
 
 .puzzle-container {
   display: inline-block;
@@ -297,11 +321,6 @@ button[type="submit"]:hover, button[type="button"]:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
-
-.fb-share-container {
-  display: inline-block;
-  margin-left: 1160px;
 }
 
 /*Dark mode*/

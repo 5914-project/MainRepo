@@ -181,6 +181,7 @@ def recipe(recipe_id):
     recipe = es.get_recipe_by_id(recipe_id)
     return render_template('recipe.html', recipe=recipe)
 
+
 @app.route('/like', methods=['POST'])
 @login_required
 def like():
