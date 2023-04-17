@@ -225,18 +225,17 @@ function toggleLikes(like) {
 
 //Dark mode
 function toggleDarkMode() {
-  var body = document.querySelector('body');
-  body.classList.toggle('dark-mode');
-  
-  // Save the user's preference to local storage
-  var isDarkModeEnabled = body.classList.contains('dark-mode');
-  localStorage.setItem('dark-mode-enabled', isDarkModeEnabled);
+    var body = document.getElementById('body');
+    body.classList.toggle('dark-mode');
+    // Save the user's preference to local storage
+    var isDarkModeEnabled = body.classList.contains('dark-mode');
+    localStorage.setItem('dark-mode-enabled', isDarkModeEnabled);
 }
 
 // Load the user's preferred mode from local storage
 var isDarkModeEnabled = localStorage.getItem('dark-mode-enabled');
 if (isDarkModeEnabled === 'true') {
-  document.querySelector('body').classList.add('dark-mode');
+  document.getElementById('body').classList.add('dark-mode');
 }
 
 //----------------- feedback page functions ------------------------------//

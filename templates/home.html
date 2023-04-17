@@ -1,11 +1,11 @@
 {% extends "base.html" %} 
 
 {% block content %}
-    <div class="body container">
+    <div id="body" class="body">
         <div class="username">
             {{ items.username }}
         </div>
-        <button onclick="toggleDarkMode()" id = "dark-mode">Toggle Dark Mode</button>
+        <button onclick="toggleDarkMode()" id ="dark-mode">Toggle Dark Mode</button>
         <div class="logo-container">
             <img src="/static/images/Logo.png" alt="Logo" class="logo">
         </div>

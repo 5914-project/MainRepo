@@ -5,6 +5,7 @@
   padding: 30px;
   background-color: white;
   color: black;
+  min-height: 100vh;
 }
 
 /* Style the header */
@@ -309,52 +310,52 @@ button[type="submit"]:hover, button[type="button"]:hover {
 }
 
 /*Dark mode*/
-body.dark-mode {
+.body.dark-mode {
   background-color: black;
   color: white;
 }
 
 /* Styles for header in dark mode */
-body.dark-mode h1 {
+.body.dark-mode h1 {
   color: white;
 }
 
-body.dark-mode h2 {
+.body.dark-mode h2 {
   color: white;
 }
 
 /* Style the main image in dark mode */
-body.dark-mode img {
+.body.dark-mode img {
   filter: brightness(50%);
 }
 
 /* Styles for the text description in dark mode */
-body.dark-mode p {
+.body.dark-mode p {
   color: white;
 }
 
 /* Styles for the form elements in dark mode */
-body.dark-mode label {
+.body.dark-mode label {
   color: white;
 }
 
 /* Styles for the buttons in dark mode */
-body.dark-mode button[type="submit"], body.dark-mode button[type="button"], body.dark-mode #imageInput, body.dark-mode #imageInputAI {
+.body.dark-mode button[type="submit"], .body.dark-mode button[type="button"], .body.dark-mode #imageInput, .body.dark-mode #imageInputAI {
   background-color: white;
   color: black;
 }
 
-body.dark-mode button[type="submit"]:hover, body.dark-mode button[type="button"]:hover {
+.body.dark-mode button[type="submit"]:hover, .body.dark-mode button[type="button"]:hover {
   background-color: #005fa3;
 }
 
 /* Styles for the sidebar in dark mode */
-body.dark-mode .sidebar {
+.body.dark-mode .sidebar {
   background-color:grey;
   color: white;
 }
 
-body.dark-mode a {
+.body.dark-mode a {
   color: white;
 }
 
