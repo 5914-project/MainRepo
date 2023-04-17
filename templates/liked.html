@@ -21,9 +21,13 @@
                                 {{ item.title }}
                             </strong></span>
                         </button>
-                    </div><div class="like-container">
-                        <img src="static/images/{{ item.liked }}.png" alt="like" class="like" id="{{ item.id }}" name="{{ item.liked }}" onclick="toggleLikes(this)">
-                        <span id="counter-{{ item.id }}">{{ item.likes }}</span>
+                    </div><div class="media-container">
+                        <div class="like-container">
+                            <img src="static/images/{{ item.liked }}.png" alt="like" class="like" id="{{ item.id }}" name="{{ item.liked }}" onclick="toggleLikes(this)">
+                            <span id="counter-{{ item.id }}">{{ item.likes }}</span>
+                        </div><div class="fb-container">
+                            <div class="fb-share-button" data-href="{{ url_for('recipes', _external=True) }}" data-layout="button_count" data-size="small"></div>
+                        </div>
                     </div>
                     <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
                         <div class="accordion-body" style="text-align: left;">
