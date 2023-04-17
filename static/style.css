@@ -1,5 +1,5 @@
 /* Add some default styles */
-body {
+.body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 30px;
@@ -193,21 +193,6 @@ button[type="submit"]:hover, button[type="button"]:hover {
     font-weight: bold;
   }
 
-  .pills {
-    display: flex;
-    justify-content: center;
-  }
-
-  .login-width {
-    margin-left: 25%;
-    margin-right: 25%;
-  }
-
-  .login-button-width {
-    margin-left: 35%;
-    margin-right: 35%;
-  }
-
   .username {
       float: left;
       margin-left: 5%;
@@ -372,3 +357,40 @@ body.dark-mode .sidebar {
 body.dark-mode a {
   color: white;
 }
+
+/* styles for login page */
+.login-container {
+    background-image: url(https://previews.123rf.com/images/krekdm/krekdm1607/krekdm160700299/61898029-seamless-food-pattern-can-be-used-for-wallpaper-website-background-wrapping-paper-restaurant.jpg);
+    width: 100%; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family: Tahoma;
+    color: white;
+    padding: 30px;
+}
+.welcome {
+    margin: 0 10%;
+}
+.auth-info {
+    background-color: rgb(243, 195, 164, .97);
+    margin: auto;
+    width: 80%;
+    max-width: 650px;
+    border-radius: 10px;
+}
+  .login-width {
+    margin: auto;
+    width: 70%;
+  }
+  .login-button-width {
+    margin: auto;
+    width: 30%;
+  }
+  .auth-button {
+    color: white !important;
+  }
+  .error {
+    color: red;
+    font-size: 25px;
+  }
