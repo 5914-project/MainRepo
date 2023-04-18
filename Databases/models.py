@@ -51,3 +51,6 @@ class User:
     def remove_liked(self, id):
         session['liked'].remove(id)
         session.modified = True
+
+    def liked(self, id):
+        return session and id in session['liked']

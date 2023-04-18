@@ -1,4 +1,5 @@
 from elasticsearch import Elasticsearch, helpers
+from flask import session
 from Databases.es_utility import get_data
 from Databases.models import User
 import re, os
@@ -48,7 +49,7 @@ def search(ingredients):
        }
     }
 
-    res = ES.search(index=INDEX, body=query_body, size=10)
+    res = ES.search(index=INDEX, body=query_body, size=20)
 
     recipes = []
     for doc in res['hits']['hits']:
@@ -58,29 +59,16 @@ def search(ingredients):
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in doc['_source']['ingredients']],
            'instructions': doc['_source']['instructions'],
            'likes': doc['_source']['likes'],
-           'liked': doc['_id'] in User().get_liked()
+           'liked': User().liked(doc['_id'])
         }
         recipes.append(recipe)
 
-        print(doc)
+        print(recipe)
         print()
 
-    return recipes
+    return sorted(recipes, key=lambda d: d['likes'], reverse=True)
 
-# Get a recipe by its ID from Elasticsearch index. Makes sharing the recipe easier.
-def get_recipe_by_id(recipe_id):
-    # Fetch the recipe document from the index
-    res = ES.get(index="recipes", id=recipe_id)
 
-    # Extract the recipe data and return as a dictionary
-    recipe = {
-        'id': res['_id'],
-        'title': res['_source']['title'],
-        'ingredients': [x.replace('ADVERTISEMENT', '') for x in res['_source']['ingredients']],
-        'instructions': res['_source']['instructions'],
-        'likes': res['_source']['likes']
-    }
-    return recipe
 def get_recipes(ids):
     recipes = []
 
@@ -92,7 +80,7 @@ def get_recipes(ids):
            'ingredients': [x.replace('ADVERTISEMENT', '') for x in result['_source']['ingredients']],
            'instructions': result['_source']['instructions'],
            'likes': result['_source']['likes'],
-           'liked': result['_id'] in User().get_liked()
+           'liked': User().liked(result['_id'])
         }
         recipes.append(recipe)
 
@@ -118,8 +106,3 @@ def index():
 def delete(index):
     ES.indices.delete(index=index, ignore=[400, 404])
 
-
-# initialize()
-# index()
-
-#resp = ES.get(index='recipes', id='uY2vdocB_6VcH_YNzbpj')

@@ -178,7 +178,7 @@ def recipes():
 @login_required
 def recipe(recipe_id):
     # Fetch the recipe from Elasticsearch using the recipe_id
-    recipe = es.get_recipe_by_id(recipe_id)
+    recipe = es.get_recipes([recipe_id])[0]
     return render_template('recipe.html', recipe=recipe)
 
 

@@ -14,36 +14,37 @@
 
         <div class="accordion">
             {% for item in items %}
-                <div class="accordion-item">
-                    <div class="title-container">
-                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}">
-                            <span class="display-1 body-text title-text"><strong>
-                                {{ item.title }}
-                            </strong></span>
-                        </button>
-                    </div><div class="media-container">
-                        <div class="like-container">
-                            <img src="static/images/{{ item.liked }}.png" alt="like" class="like" id="{{ item.id }}" name="{{ item.liked }}" onclick="toggleLikes(this)">
-                            <span id="counter-{{ item.id }}">{{ item.likes }}</span>
-                        </div><div class="fb-container">
-                            <div class="fb-share-button" data-href="{{ url_for('recipes', _external=True) }}" data-layout="button_count" data-size="small"></div>
-                        </div>
-                    </div>
-                    <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
-                        <div class="accordion-body" style="text-align: left;">
-                            <strong>Ingredients</strong>
-                            <ul>
-                                {% for ingredient in item.ingredients %}
-                                    <li>{{ ingredient }}</li>
-                                {% endfor %}
-                            </ul>
-                            <br>
-                            <strong>Instructions</strong>
-                            <br>
-                            {{ item.instructions }}
-                        </div>
+            <div class="accordion-item">
+                <div class="title-container">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-c-{{ item.id }}">
+                                <span class="display-1 body-text title-text"><strong>
+                                    {{ item.title }}
+                                </strong></span>
+                    </button>
+                </div><div class="media-container">
+                    <div class="like-container">
+                        <img src="static/images/{{ item.liked }}.png" alt="like" class="like" id="{{ item.id }}" name="{{ item.liked }}" onclick="toggleLikes(this)">
+                        <span id="counter-{{ item.id }}">{{ item.likes }}</span>
+                    </div><div class="fb-container">
+                        <div class="fb-share-button" data-href="{{ url_for('recipes', _external=True) }}" data-layout="button_count" data-size="small"></div>
                     </div>
                 </div>
+               
+                <div id="panelsStayOpen-c-{{ item.id }}" class="accordion-collapse collapse" >
+                    <div class="accordion-body" style="text-align: left;">
+                        <strong>Ingredients</strong>
+                        <ul>
+                            {% for ingredient in item.ingredients %}
+                            <li>{{ ingredient }}</li>
+                            {% endfor %}
+                        </ul>
+                        <br>
+                        <strong>Instructions</strong>
+                        <br>
+                        {{ item.instructions }}
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
