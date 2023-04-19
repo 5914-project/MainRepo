@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, jsonify, redirect, url_for, session
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session, send_file, make_response
+import base64
 from Speech.SpeechToText import speech_to_text
 import Barcode.BarcodeScanner as BS
 import Databases.elastic as es
@@ -22,8 +23,6 @@ app = Flask(__name__)
 app.secret_key = secrets.token_bytes(32)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
-
 es.initialize()
 db.initialize()
 
@@ -36,6 +35,7 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             return redirect('/')
+
     return wrap
 
 
@@ -67,25 +67,29 @@ def signout():
     return redirect('/')
 
 
-#Home, Team, Liked ,and User Feedback route
+# Home, Team, Liked ,and User Feedback route
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
-    return render_template("home.html", items={'username':User().username()})
+    return render_template("home.html", items={'username': User().username()})
+
 
 @app.route("/liked", methods=["GET", "POST"])
 @login_required
 def liked():
     return render_template('liked.html', items=es.get_recipes(User().get_liked()))
 
+
 @app.route("/team", methods=["GET", "POST"])
 def team():
     return render_template("team.html")
+
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required
 def feedback():
     return render_template("feedback.html")
+
 
 @app.route("/games", methods=["GET", "POST"])
 @login_required
@@ -93,7 +97,7 @@ def games():
     return render_template("games.html")
 
 
-#Input Data Route
+# Input Data Route
 @app.route('/scan-barcode', methods=['GET', "POST"])
 @login_required
 def scan_barcode():
@@ -107,7 +111,8 @@ def scan_barcode():
     db.update_doc(User().username())
     return [barcode]
 
-@app.route('/run-AI', methods=['GET', "POST"])
+
+@app.route('/ai-rec', methods=['GET', "POST"])
 @login_required
 def run_AI():
     file = request.files['image']
@@ -123,8 +128,22 @@ def run_AI():
     box_list = AI.inference(img)
     img_pil = AI.draw_box_output(img, box_list)
     # AI.show_pil_img(img_pil)
-    AI.save_pil_img(img_pil, os.path.join(app.config['UPLOAD_FOLDER'],"out.png"))
-    return AI.box_list_to_text_list(box_list)
+    AI.save_pil_img(img_pil, os.path.join(app.config['UPLOAD_FOLDER'], "out.png"))
+    return AI.box_list_to_material_list(box_list, threshold=0.8)
+
+
+@app.route('/ai-img', methods=['GET', "POST"])
+@login_required
+def get_ai_img():
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], "out.png"), "rb") as f:
+        image_binary = f.read()
+
+        response = base64.b64encode(image_binary)
+        response = response.decode("utf-8")
+        # print(f"respond base64 img: {response}")
+        print(f"responded base64 img")
+        return json.dumps(response)
+
 
 @app.route("/speech", methods=["GET", 'POST'])
 @login_required
@@ -136,6 +155,7 @@ def speech():
     db.update_doc(User().username())
     return result
 
+
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
 def text():
@@ -145,6 +165,7 @@ def text():
     db.update_doc(User().username())
     return jsonify([ingredient])
 
+
 @app.route('/generate-puzzle', methods=['GET', 'POST'])
 @login_required
 def generate_puzzle():
@@ -153,11 +174,13 @@ def generate_puzzle():
     response_data = {"puzzle": puzzle}
     return json.dumps(response_data)
 
+
 @app.route('/savePicture', methods=['GET', 'POST'])
 @login_required
 def savePicture():
     Camera.takePic()
     return ""
+
 
 @app.route('/removeItems', methods=['POST'])
 @login_required
@@ -170,18 +193,21 @@ def removeItems():
     db.update_doc(User().username())
     return User().get_ingredients()
 
-#Return items route
+
+# Return items route
 @app.route('/searchItems', methods=['POST'])
 @login_required
 def searchItems():
     ingredients = request.json.get('ingredients')
     return redirect(url_for('recipes', items=json.dumps(ingredients)))
 
-#Page Reader Route
+
+# Page Reader Route
 @app.route('/read-page', methods=['POST'])
 def read_page():
     webpage = request.json.get('webpage')
     text_to_speech(webpage)
+
 
 @app.route('/recipes', methods=['GET', 'POST'])
 @login_required

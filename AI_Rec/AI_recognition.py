@@ -133,6 +133,16 @@ class AIRec():
                 txt_list.append(f'score:{score}\ntop3:{top3_str},\ntop3_val={top3_val}')
             return txt_list
 
+    def box_list_to_material_list(self, box_list, threshold=0.9):
+        txt_list = []
+        with torch.no_grad():
+            for box, score, top3_str, top3_val in box_list:
+                if top3_val[0] > threshold:
+                    txt_list.append(top3_str[0])
+            unique_txt_list = list(set(txt_list))
+            return unique_txt_list
+
+
     def inference(self, img_pil):
         ###
         # perform inference in one pil img
