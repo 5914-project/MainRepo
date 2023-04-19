@@ -161,7 +161,7 @@ function sendImageToAI() {
   var formData = new FormData();
   formData.append("image", image);
 
-  fetch("/run-AI", {
+  fetch("/ai-rec", {
     method: "POST",
     body: formData
   }).then((response) => {
