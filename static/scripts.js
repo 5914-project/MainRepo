@@ -1,27 +1,26 @@
 function readWebpage() {
     // Get the rendered HTML content of the page
     var content = document.documentElement.outerHTML;
-    
-    var data = { webpage: content };
+
+    var data = {webpage: content};
     fetch("/read-page", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
     })
 }
 
 
-
 function hideWhenScrolled(elementClass) {
-    window.addEventListener("scroll", function() {
-    var element = document.querySelector(elementClass);
-    if (window.scrollY > 0) {
-        element.classList.add("hidden");
-    } else {
-        element.classList.remove("hidden");
-    }
+    window.addEventListener("scroll", function () {
+        var element = document.querySelector(elementClass);
+        if (window.scrollY > 0) {
+            element.classList.add("hidden");
+        } else {
+            element.classList.remove("hidden");
+        }
     });
 }
 
@@ -32,7 +31,7 @@ function goBack() {
 //----------------- home page functions ------------------------------//
 function logout() {
     fetch("/signout", {
-        method:"POST"
+        method: "POST"
     }).then((response) => {
         window.location.href = response.url;
     });
@@ -42,14 +41,14 @@ function getSelected(remove) {
     let ingredients = [];
     checkboxes = document.getElementsByName('ingredient');
 
-    for (const ingredient of checkboxes) 
-        if (ingredient.checked) 
+    for (const ingredient of checkboxes)
+        if (ingredient.checked)
             ingredients.push(ingredient.parentNode.id);
 
     if (remove)
-        for (const ingredient of ingredients) 
+        for (const ingredient of ingredients)
             document.getElementById(ingredient).remove();
-        
+
     return ingredients;
 }
 
@@ -80,31 +79,31 @@ function search() {
 }
 
 function sendImageToBarcodeScanner() {
-  var imageInput = document.getElementById("imageInput");
-  var image = imageInput.files[0];
+    var imageInput = document.getElementById("imageInput");
+    var image = imageInput.files[0];
 
-  var formData = new FormData();
-  formData.append("image", image);
+    var formData = new FormData();
+    formData.append("image", image);
 
-  fetch("/scan-barcode", {
-    method: "POST",
-    body: formData
-  }).then((response) => {
-    return response.json(); // Parse response as JSON data
-  }).then((items) => {
-    addIngredients(items)
-  })
+    fetch("/scan-barcode", {
+        method: "POST",
+        body: formData
+    }).then((response) => {
+        return response.json(); // Parse response as JSON data
+    }).then((items) => {
+        addIngredients(items)
+    })
 }
 
 function sendToSpeech() {
-  event.preventDefault();
-  fetch("/speech", {
-    method: "POST",
-  }).then((response) => {
-    return response.json(); // Parse response as JSON data
-  }).then((items) => {
-    addIngredients(items)
-  })
+    event.preventDefault();
+    fetch("/speech", {
+        method: "POST",
+    }).then((response) => {
+        return response.json(); // Parse response as JSON data
+    }).then((items) => {
+        addIngredients(items)
+    })
 }
 
 function addIngredients(items) {
@@ -123,82 +122,106 @@ function addIngredients(items) {
 }
 
 var checked = true;
+
 function selectAll() {
     checkboxes = document.getElementsByName('ingredient');
-    for(checkbox of checkboxes) checkbox.checked = !checked;
+    for (checkbox of checkboxes) checkbox.checked = !checked;
     checked = !checked;
 }
 
 function handleEnterKeyDown(event) {
-  if (event.keyCode === 13) { // check if Enter key was pressed
-    event.preventDefault();
-    let data = { ingredients: document.getElementById("text-box").value};
-    fetch("/text", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then((response) => {
-      return response.json();
-    }).then((items) => {
-        addIngredients(items)
-        document.getElementById("text-box").value = "";
-    })
- }
+    if (event.keyCode === 13) { // check if Enter key was pressed
+        event.preventDefault();
+        let data = {ingredients: document.getElementById("text-box").value};
+        fetch("/text", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then((response) => {
+            return response.json();
+        }).then((items) => {
+            addIngredients(items)
+            document.getElementById("text-box").value = "";
+        })
+    }
 }
 
 function takePicture() {
-  fetch("/savePicture", {
-    method: "POST",
-  })
-}
-
-function sendImageToAI() {
-  var imageInput = document.getElementById("imageInputAI");
-  var image = imageInput.files[0];
-
-  var formData = new FormData();
-  formData.append("image", image);
-
-  fetch("/run-AI", {
-    method: "POST",
-    body: formData
-  }).then((response) => {
-    return response.json(); // Parse response as JSON data
-  }).then((items) => {
-    addIngredients(items)
-  })
+    fetch("/savePicture", {
+        method: "POST",
+    })
 }
 
 function startCarousel() {
-        var images = document.querySelectorAll(".image-carousel img");
-        var index = 0;
-        setInterval(function() {
-            images[index].classList.remove("active");
-            index = (index + 1) % images.length;
-            images[index].classList.add("active");
-        }, 3000);
-    }
-    startCarousel();
+    var images = document.querySelectorAll(".image-carousel img");
+    var index = 0;
+    setInterval(function () {
+        images[index].classList.remove("active");
+        index = (index + 1) % images.length;
+        images[index].classList.add("active");
+    }, 3000);
+}
+
+startCarousel();
+
+function show_ai_output() {
+    fetch("/ai-img", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'image/png'
+        }
+    }).then((response) => {
+        return response.json(); // Parse response as JSON data
+    }).then((data) => {
+        // console.log(data);
+        document.getElementById("ai_img").src = 'data:image/png;base64,' + data;
+    })
+    var image = document.querySelectorAll(".image-ai-result img");
+    image[0].classList.add("active");
+}
+
+// show_ai_output()
+
+
+function sendImageToAI() {
+    var imageInput = document.getElementById("imageInputAI");
+    var image = imageInput.files[0];
+
+    var formData = new FormData();
+    formData.append("image", image);
+
+    fetch("/ai-rec", {
+        method: "POST",
+        body: formData
+    }).then((response) => {
+        return response.json(); // Parse response as JSON data
+    }).then((items) => {
+        addIngredients(items)
+    }).then(() => {
+        show_ai_output();
+    })
+}
+
 
 function clearAllFields() {
-  var inputFields = document.querySelectorAll('input, textarea');
+    var inputFields = document.querySelectorAll('input, textarea');
 
-  for (var i = 0; i < inputFields.length; i++) {
-    if (inputFields[i].type === 'file') {
-      inputFields[i].value = null;
-    } else {
-      inputFields[i].value = "";
+    for (var i = 0; i < inputFields.length; i++) {
+        if (inputFields[i].type === 'file') {
+            inputFields[i].value = null;
+        } else {
+            inputFields[i].value = "";
+        }
     }
-  }
 }
 
 //----------------- results page functions ------------------------------//
 function toggleLikes(like) {
     let counter = document.getElementById('counter-' + like.id);
     let liked = true;
-    
+
     if (like.name == 'False') {
         like.src = "static/images/True.png";
         like.name = "True";
@@ -235,7 +258,7 @@ function toggleDarkMode() {
 // Load the user's preferred mode from local storage
 var isDarkModeEnabled = localStorage.getItem('dark-mode-enabled');
 if (isDarkModeEnabled === 'true') {
-  document.getElementById('body').classList.add('dark-mode');
+    document.getElementById('body').classList.add('dark-mode');
 }
 
 //----------------- feedback page functions ------------------------------//
@@ -255,31 +278,31 @@ function submitComment() {
     document.getElementById("comment").value = "";
     document.getElementById("comment").focus();
     saveComments(commentSection.innerHTML);
-  }
+}
 
-  function editComment(button) {
+function editComment(button) {
     var commentText = button.parentNode.parentNode.querySelector(".comment-text");
     var newText = prompt("Enter new comment text", commentText.innerText);
     if (newText !== null) {
-      commentText.innerText = newText;
-      saveComments(document.getElementById("comment-section").innerHTML);
+        commentText.innerText = newText;
+        saveComments(document.getElementById("comment-section").innerHTML);
     }
-  }
+}
 
-  function deleteComment(button) {
+function deleteComment(button) {
     var comment = button.parentNode.parentNode;
     comment.parentNode.removeChild(comment);
     saveComments(document.getElementById("comment-section").innerHTML);
-  }
+}
 
-  function saveComments(comments) {
+function saveComments(comments) {
     localStorage.setItem("userComments", comments);
-  }
+}
 
-  function loadComments() {
+function loadComments() {
     var commentSection = document.getElementById("comment-section");
     var comments = localStorage.getItem("userComments");
     if (comments) {
-      commentSection.innerHTML = comments;
+        commentSection.innerHTML = comments;
     }
-  }
+}

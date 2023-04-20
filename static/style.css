@@ -1,67 +1,68 @@
 /* Add some default styles */
 .body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 30px;
-  background-color: white;
-  color: black;
-  min-height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    color: black;
+    min-height: 100vh;
 }
 
 /* Style the header */
 .h1 {
-  font-size: 50px;
-  margin-bottom: 20px;
-  font-family: "Brush Script MT", cursive;
+    font-size: 50px;
+    margin-bottom: 20px;
+    font-family: "Brush Script MT", cursive;
 }
 
 /* Style the main image */
 .img {
-  display: block;
-  margin: 0 auto;
-  width: 50%;
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
 }
 
 label {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 /* Style the text description */
 .p {
-  font-size: 30px;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-left: 50px;
+    font-size: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 50px;
 }
 
 .form {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
 }
 
 button[type="submit"], button[type="button"], #imageInput, #imageInputAI {
-  padding: 10px 20px;
-  font-size: 1.1rem;
-  border-radius: 5px;
-  border: none;
-  background-color: #eee;
-  color: black;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #eee;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
 }
 
 button[type="submit"]:hover, button[type="button"]:hover {
-  background-color: #005fa3;
+    background-color: #005fa3;
 }
 
 
-  .sidebar {
+.sidebar {
     height: 100%;
     width: 100px;
     position: fixed;
@@ -70,27 +71,27 @@ button[type="submit"]:hover, button[type="button"]:hover {
     background-color: #f2f2f2;
     overflow-x: hidden;
     padding-top: 20px;
-  }
-  
-  .sidebar a {
+}
+
+.sidebar a {
     display: block;
     color: #000;
     padding: 16px;
     text-decoration: none;
-  }
-  
-  .sidebar a:hover {
+}
+
+.sidebar a:hover {
     background-color: #555;
     color: white;
     cursor: pointer;
-  }
-  
-  .content {
+}
+
+.content {
     margin-left: 160px; /* Same as the width of the sidebar */
     padding: 0px 10px;
-  }
+}
 
-  .back-button {
+.back-button {
     position: fixed;
     top: 0;
     left: 0;
@@ -101,37 +102,39 @@ button[type="submit"]:hover, button[type="button"]:hover {
     font-size: 16px;
     cursor: pointer;
     transition: opacity 0.3s ease-out;
-  }
-  .back-button.hidden {
+}
+
+.back-button.hidden {
     opacity: 0;
     pointer-events: none;
-  }
+}
 
-  .logo-container {
+.logo-container {
     position: fixed;
     top: 0;
     right: 0;
     transition: opacity 0.3s ease-out;
-  }
-  
-  .logo {
+}
+
+.logo {
     width: 100px;
     height: 100px;
-  }
-  
-  .logo-container.hidden {
+}
+
+.logo-container.hidden {
     opacity: 0;
     pointer-events: none;
-  }
+}
 
-  .image-carousel {
+.image-carousel {
     position: relative;
     height: 400px;
     width: 666px;
     overflow: hidden;
     margin: 0 auto;
-  }
-  .image-carousel img {
+}
+
+.image-carousel img {
     position: absolute;
     top: 0;
     left: 0;
@@ -140,16 +143,32 @@ button[type="submit"]:hover, button[type="button"]:hover {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-  }
-  .image-carousel img.active {
+}
+
+.image-carousel img.active {
     opacity: 1;
-  }
+}
 
-  ul {
+.image-ai-result img {
+    object-fit: cover;
+    height: 0%;
+    width: 0%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.image-ai-result img.active {
+    height: auto;
+    width: auto;
+    opacity: 1;
+}
+
+
+ul {
     list-style-type: none;
-  }
+}
 
-  #comment-section {
+#comment-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -157,9 +176,9 @@ button[type="submit"]:hover, button[type="button"]:hover {
     margin-top: 20px;
     max-width: 600px;
     margin: 0 auto;
-  }
-  
-  .comment {
+}
+
+.comment {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,64 +186,64 @@ button[type="submit"]:hover, button[type="button"]:hover {
     padding: 10px;
     border: 1px solid black;
     max-width: 400px;
-  }
+}
 
-  .comment-actions {
+.comment-actions {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     margin-top: 10px;
-  }
+}
 
-  .comment-actions button {
+.comment-actions button {
     margin: 0 5px;
     padding: 5px 10px;
     font-size: 14px;
-  }
+}
 
-  .team_pics {
+.team_pics {
     width: 250px;
-    height: auto; 
+    height: auto;
     margin-bottom: 20px;
     margin-top: 5px;
-  }
+}
 
-  .team_names {
+.team_names {
     font-weight: bold;
-  }
+}
 
-  .username {
-      float: left;
-      margin-left: 5%;
-  }
+.username {
+    float: left;
+    margin-left: 5%;
+}
 
-  #dark-mode {
+#dark-mode {
     position: absolute;
     top: 60px;
     left: 150px;
-  }
+}
 
-  #items {
+#items {
     list-style: none; /* remove bullet points */
     padding: 0; /* remove default padding */
     margin: 0; /* remove default margin */
-  }
-  
-  #items li {
+}
+
+#items li {
     font-size: 1.2rem; /* set font size */
     line-height: 1.5; /* set line height */
     padding: 0.5rem; /* add padding */
     border-bottom: 1px solid #ccc; /* add a bottom border */
-  }
-  
-  #items li:last-child {
-    border-bottom: none; /* remove bottom border for last list item */
-  }
+}
 
-  .remove-button {
+#items li:last-child {
+    border-bottom: none; /* remove bottom border for last list item */
+}
+
+.remove-button {
     margin-left: 10px;
-  }
+}
 
 .title-text {
     font-size: 20px;
@@ -239,7 +258,7 @@ button[type="submit"]:hover, button[type="button"]:hover {
 .accordion-item {
     border-width: 10px !important;
     border: 1px solid rgb(194, 193, 193) !important;
-}  
+}
 
 .ingredients {
     text-align: left;
@@ -251,28 +270,33 @@ button[type="submit"]:hover, button[type="button"]:hover {
     display: inline-block;
     width: 80%;
 }
+
 .media-container {
     display: inline-block;
-    width:20%;
+    width: 20%;
     text-align: left;
 }
+
 .like-container {
     display: inline-block;
-    width: 50%; 
+    width: 50%;
     padding-left: 15%;
     /* background-color: #005fa3; */
 }
+
 .fb-container {
     /* float: right; */
     display: inline-block;
     width: 50%;
     padding-left: 7%;
     /* background-color: red;*/
-} 
+}
+
 .like {
     height: 30px;
     width: 30px;
 }
+
 .like:hover {
     cursor: pointer;
 }
@@ -281,10 +305,12 @@ button[type="submit"]:hover, button[type="button"]:hover {
     .title-container {
         width: 65%;
     }
+
     .media-container {
         width: 35%;
     }
 }
+
 @media (max-width: 635px) {
     .like-container {
         display: block;
@@ -292,77 +318,77 @@ button[type="submit"]:hover, button[type="button"]:hover {
 }
 
 .puzzle-container {
-  display: inline-block;
-  height: 350px;
-  width: 350px;
-  margin: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  overflow: auto;
-  font-family: monospace;
-  font-size: 20px;
+    display: inline-block;
+    height: 350px;
+    width: 350px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: auto;
+    font-family: monospace;
+    font-size: 20px;
 }
 
 .actions-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 /*Dark mode*/
 .body.dark-mode {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
 }
 
 /* Styles for header in dark mode */
 .body.dark-mode h1 {
-  color: white;
+    color: white;
 }
 
 .body.dark-mode h2 {
-  color: white;
+    color: white;
 }
 
 /* Style the main image in dark mode */
 .body.dark-mode img {
-  filter: brightness(50%);
+    filter: brightness(50%);
 }
 
 /* Styles for the text description in dark mode */
 .body.dark-mode p {
-  color: white;
+    color: white;
 }
 
 /* Styles for the form elements in dark mode */
 .body.dark-mode label {
-  color: white;
+    color: white;
 }
 
 /* Styles for the buttons in dark mode */
 .body.dark-mode button[type="submit"], .body.dark-mode button[type="button"], .body.dark-mode #imageInput, .body.dark-mode #imageInputAI {
-  background-color: white;
-  color: black;
+    background-color: white;
+    color: black;
 }
 
 .body.dark-mode button[type="submit"]:hover, .body.dark-mode button[type="button"]:hover {
-  background-color: #005fa3;
+    background-color: #005fa3;
 }
 
 /* Styles for the sidebar in dark mode */
 .body.dark-mode .sidebar {
-  background-color:grey;
-  color: white;
+    background-color: grey;
+    color: white;
 }
 
 .body.dark-mode a {
-  color: white;
+    color: white;
 }
 
 /* styles for login page */
 .login-container {
     background-image: url(https://previews.123rf.com/images/krekdm/krekdm1607/krekdm160700299/61898029-seamless-food-pattern-can-be-used-for-wallpaper-website-background-wrapping-paper-restaurant.jpg);
-    width: 100%; 
+    width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -370,9 +396,11 @@ button[type="submit"]:hover, button[type="button"]:hover {
     color: white;
     padding: 30px;
 }
+
 .welcome {
     margin: 0 10%;
 }
+
 .auth-info {
     background-color: rgb(243, 195, 164, .97);
     margin: auto;
@@ -380,18 +408,22 @@ button[type="submit"]:hover, button[type="button"]:hover {
     max-width: 650px;
     border-radius: 10px;
 }
-  .login-width {
+
+.login-width {
     margin: auto;
     width: 70%;
-  }
-  .login-button-width {
+}
+
+.login-button-width {
     margin: auto;
     width: 30%;
-  }
-  .auth-button {
+}
+
+.auth-button {
     color: white !important;
-  }
-  .error {
+}
+
+.error {
     color: red;
     font-size: 25px;
-  }
+}
